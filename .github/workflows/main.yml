@@ -1,0 +1,22 @@
+name: Lint, build, tests
+
+on:
+  pull_request:
+    branches: [master, dev]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node version: 14
+      - name: lint:check
+        run: |
+          npm ci
+          npm run lint
+      - name: build:build   
+        run: npm run build
+      - name: test:check
+        run: npm run test:unit
