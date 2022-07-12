@@ -1,8 +1,10 @@
+import AuthProvider from './contexts/AuthContext';
+
 function App() {
 	return (
-		<div className="App">
+		<AuthProvider>
 			<h1>Test number 2</h1>
-		</div>
+		</AuthProvider>
 	);
 }
 
