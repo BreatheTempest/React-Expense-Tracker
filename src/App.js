@@ -1,9 +1,23 @@
 import AuthProvider from './contexts/AuthContext';
+import { Routes, Route } from 'react-router-dom';
+
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Dashboard from './pages/Dashboard';
+import Settings from './pages/Settings';
+import Transactions from './pages/Transactions';
 
 function App() {
 	return (
 		<AuthProvider>
-			<h1>Test number 2</h1>
+			<Routes>
+				<Route path="/" element={<Dashboard />} />
+				<Route path="settings" element={<Settings />} />
+				<Route path="transactions" element={<Transactions />} />
+				<Route path="signin" element={<SignIn />} />
+				<Route path="signup" element={<SignUp />} />
+				<Route />
+			</Routes>
 		</AuthProvider>
 	);
 }
