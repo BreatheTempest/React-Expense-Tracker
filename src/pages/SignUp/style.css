@@ -12,7 +12,7 @@
 .form-container {
 	margin-top: 40px;
 	margin-inline: auto;
-	width: 80%;
+	width: clamp(50%, 70%, 80%);
 }
 
 .auth-page .img-half {
@@ -34,6 +34,12 @@
 	}
 }
 
+.form-container form {
+	margin-block: 40px;
+	display: grid;
+	gap: 20px;
+}
+
 .title {
 	font-size: var(--font-size-800);
 	font-weight: var(--font-weight-semi-bold);
@@ -49,6 +55,18 @@
 	flex-direction: column;
 	font-weight: var(--font-weight-medium);
 	font-size: var(--font-size-400);
+}
+
+.label {
+	display: flex;
+}
+
+.label p {
+	margin-left: auto;
+}
+
+.input-element label {
+	margin-bottom: 10px;
 }
 
 .input-element input {
