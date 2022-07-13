@@ -12,7 +12,7 @@
 
 html,
 body {
-	height: 100%;
+	height: 100vh;
 }
 
 body {
@@ -29,6 +29,11 @@ input {
 
 button {
 	cursor: pointer;
+	display: block;
+}
+
+a {
+	text-decoration: none;
 }
 
 img,
@@ -54,6 +59,9 @@ html:focus-within {
 	--font-size-300: 0.75em;
 	--font-size-400: 0.875em;
 	--font-size-500: 1em;
+	--font-size-600: 1.125em;
+	--font-size-700: 1.5625em;
+	--font-size-800: 1.875em;
 
 	--font-weight-regular: 400;
 	--font-weight-medium: 500;
@@ -65,5 +73,6 @@ html:focus-within {
 	display: flex;
 	align-items: center;
 	gap: 12px;
+	font-size: var(--font-size-600);
 	font-weight: var(--font-weight-bold);
 }

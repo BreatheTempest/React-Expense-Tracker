@@ -1,6 +1,6 @@
-export default function input(props) {
+export default function Input(props) {
 	return (
-		<div>
+		<div className="input-element">
 			<label htmlFor={props.name}>{props.label}</label>
 			<input
 				type={props.type}
