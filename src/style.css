@@ -67,6 +67,7 @@ html:focus-within {
 	--font-weight-medium: 500;
 	--font-weight-semi-bold: 600;
 	--font-weight-bold: 700;
+
 }
 
 .logo {
@@ -75,4 +76,9 @@ html:focus-within {
 	gap: 12px;
 	font-size: var(--font-size-600);
 	font-weight: var(--font-weight-bold);
+}
+
+.app-container {
+  height: 100vh;
+  display: flex;
 }
