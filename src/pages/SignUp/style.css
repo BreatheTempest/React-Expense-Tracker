@@ -1,0 +1,122 @@
+.auth-page {
+	height: 100vh;
+	display: flex;
+	position: relative;
+}
+
+.form-half {
+	width: 50%;
+	height: 100%;
+}
+
+.form-container {
+	margin-top: 40px;
+	margin-inline: auto;
+	width: clamp(50%, 70%, 80%);
+}
+
+.auth-page .img-half {
+	object-fit: cover;
+	width: 50%;
+	max-height: 100%;
+}
+
+@media screen and (max-width: 65em) {
+	.auth-page .img-half {
+		width: 100%;
+		position: absolute;
+		z-index: -1;
+		opacity: 0.1;
+	}
+
+	.form-half {
+		width: 100%;
+	}
+}
+
+.form-container form {
+	margin-block: 40px;
+	display: grid;
+	gap: 20px;
+}
+
+.title {
+	font-size: var(--font-size-800);
+	font-weight: var(--font-weight-semi-bold);
+}
+
+.sub-title {
+	color: var(--font-clr-secondary-300);
+	font-size: var(--font-size-500);
+}
+
+.input-element {
+	display: flex;
+	flex-direction: column;
+	font-weight: var(--font-weight-medium);
+	font-size: var(--font-size-400);
+}
+
+.label {
+	display: flex;
+}
+
+.label p {
+	margin-left: auto;
+}
+
+.input-element label {
+	margin-bottom: 10px;
+}
+
+.input-element input {
+	border: 1px solid #f2f2f2;
+	border-radius: 10px;
+	font-weight: var(--font-weight-medium);
+	font-size: var(--font-size-500);
+	padding: 15px 20px;
+}
+
+.form-container .btn {
+	width: 100%;
+	font-weight: var(--font-weight-regular);
+	font-size: var(--font-size-500);
+	border-radius: 10px;
+	padding: 14px;
+	transition: color 0.2s, background-color 0.2s;
+}
+
+.btn.btn-primary {
+	background-color: var(--clr-primary);
+	color: #1b212d;
+}
+
+.btn.btn-primary:hover {
+	color: var(--clr-primary);
+	background-color: #1b212d;
+}
+
+.btn.btn-secondary {
+	color: var(--font-clr-secondary-300);
+	background-color: var(--bg-clr-primary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	border: 1px solid #f2f2f2;
+}
+
+.btn.btn-secondary:hover {
+	color: var(--bg-clr-primary);
+	background-color: var(--font-clr-secondary-300);
+}
+
+.redirect {
+	text-align: center;
+	color: var(--font-clr-secondary-200);
+	font-size: var(--font-size-400);
+}
+
+.redirect a {
+	color: var(--font-clr-primary);
+}
