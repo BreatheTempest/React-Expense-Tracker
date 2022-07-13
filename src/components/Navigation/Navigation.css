@@ -1,0 +1,36 @@
+.nav-container {
+    width: 15%;
+    padding: 2rem;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-logo {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: 100%;
+}
+
+.nav-links a{
+    padding: 1rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 1rem;
+}
+
+.nav-links a:hover{
+    background-color: #C8EE44;
+}
+
+.nav-logout {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
