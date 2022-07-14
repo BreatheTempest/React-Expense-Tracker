@@ -1,0 +1,22 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.header-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: silver;
+  padding: 6px 15px 6px 7px;
+  border-radius: 2rem;
+}
+
+.header-profile p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
