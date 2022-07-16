@@ -1,0 +1,19 @@
+.password-options {
+	display: flex;
+	justify-content: space-between;
+}
+
+.password-options .input-element {
+	flex-direction: row-reverse;
+	align-items: center;
+	gap: 10px;
+}
+
+.password-options .input-element label {
+	margin: 0;
+}
+
+.password-options button {
+	font-size: var(--font-size-400);
+	font-weight: var(--font-weight-medium);
+}
