@@ -10,9 +10,12 @@ import Button from '../../components/Button';
 
 import img from '../../assets/images/signup.svg';
 import googleIcon from '../../assets/icons/Google.svg';
+import swoosh from '../../assets/swoosh.svg';
 
 export default function Signup() {
-	const { signup, setDisplayName } = useAuth();
+	const { signup, setDisplayName, signInGoogle } = useAuth();
+	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState({
 		name: '',
 		email: '',
@@ -24,18 +27,7 @@ export default function Signup() {
 		password: '',
 	});
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.log(errors);
-		if (Object.keys(errors).length === 0) {
-			signup(data.email, data.password)
-				.then((newUser) => setDisplayName(newUser, data.name))
-				.catch((err) => console.log(err));
-		}
-	};
-
-	const handleChange = async (e) => {
-		e.preventDefault();
+	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setData((prev) => ({
 			...prev,
@@ -43,7 +35,21 @@ export default function Signup() {
 		}));
 	};
 
-	//Check for errors
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (Object.keys(errors).length === 0) {
+			signup(data.email, data.password)
+				.then((newUser) => {
+					setLoading(true);
+					setDisplayName(newUser.user, data.name);
+					navigate('/', { replace: true });
+				})
+				.catch(() => setErrors({ name: 'Failed to create an account' }));
+		}
+		setLoading(false);
+	};
+
+	//Check for errors and set Errors
 	useEffect(() => {
 		setErrors({});
 		if (data.password.length < 6 && data.password !== '') {
@@ -58,7 +64,7 @@ export default function Signup() {
 				email: 'Email is incorrect',
 			}));
 		}
-		if (!/[^0-9]*/gi.test(data.name) && data.name !== '') {
+		if (!/^[a-zA-Z\s]+$/g.test(data.name) && data.name !== '') {
 			setErrors((prev) => ({
 				...prev,
 				name: 'Name can contain only letters',
@@ -105,11 +111,20 @@ export default function Signup() {
 							icon={googleIcon}
 							class="btn btn-secondary"
 							value="Sign up with google"
+							disabled={loading}
+							onClick={(e) => {
+								e.preventDefault();
+								signInGoogle(setLoading, navigate, setErrors);
+							}}
 						/>
 					</form>
-					<p className="redirect">
-						Already have an account? <Link to="/signin">Sign in</Link>
-					</p>
+					<div className="redirect">
+						<p>Already have an account?</p>
+						<Link to="/signin">
+							Sing in
+							<img src={swoosh} alt="" />
+						</Link>
+					</div>
 				</div>
 			</div>
 			<img className="img-half" src={img} alt="" />

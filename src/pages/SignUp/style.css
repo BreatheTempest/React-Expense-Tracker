@@ -2,6 +2,7 @@
 	height: 100vh;
 	display: flex;
 	position: relative;
+	width: 100%;
 }
 
 .form-half {
@@ -63,6 +64,7 @@
 
 .label p {
 	margin-left: auto;
+	color: red;
 }
 
 .input-element label {
@@ -112,11 +114,15 @@
 }
 
 .redirect {
-	text-align: center;
+	display: flex;
+	justify-content: center;
+	gap: 5px;
 	color: var(--font-clr-secondary-200);
 	font-size: var(--font-size-400);
 }
 
 .redirect a {
 	color: var(--font-clr-primary);
+	display: grid;
+	place-items: center;
 }
