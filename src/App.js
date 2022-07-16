@@ -8,12 +8,15 @@ import Dashboard from './pages/Dashboard';
 import Settings from './pages/Settings';
 import Transactions from './pages/Transactions';
 import Navigation from './components/Navigation/Navigation';
+import Header from "./components/Header/Header"
 
 function App() {
 	return (
 		<div className="app-container">
 			<AuthProvider>
 				<Navigation />
+        <div className="page-container">
+         <Header />
 				<Routes>
 					<Route
 						path="/"
@@ -44,6 +47,7 @@ function App() {
 					<Route path="signup" element={<SignUp />} />
 					<Route />
 				</Routes>
+        </div>
 			</AuthProvider>
 		</div>
 	);
