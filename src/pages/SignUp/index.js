@@ -13,7 +13,7 @@ import googleIcon from '../../assets/icons/Google.svg';
 import swoosh from '../../assets/swoosh.svg';
 
 export default function Signup() {
-	const { signup, setDisplayName } = useAuth();
+	const { signup, setDisplayName, signInGoogle } = useAuth();
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState({
@@ -27,6 +27,14 @@ export default function Signup() {
 		password: '',
 	});
 
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setData((prev) => ({
+			...prev,
+			[name]: value,
+		}));
+	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (Object.keys(errors).length === 0) {
@@ -39,15 +47,6 @@ export default function Signup() {
 				.catch(() => setErrors({ name: 'Failed to create an account' }));
 		}
 		setLoading(false);
-	};
-
-	const handleChange = async (e) => {
-		e.preventDefault();
-		const { name, value } = e.target;
-		setData((prev) => ({
-			...prev,
-			[name]: value,
-		}));
 	};
 
 	//Check for errors and set Errors
@@ -113,15 +112,19 @@ export default function Signup() {
 							class="btn btn-secondary"
 							value="Sign up with google"
 							disabled={loading}
+							onClick={(e) => {
+								e.preventDefault();
+								signInGoogle(setLoading, navigate, setErrors);
+							}}
 						/>
 					</form>
-					<p className="redirect">
+					<div className="redirect">
 						<p>Already have an account?</p>
 						<Link to="/signin">
 							Sing in
 							<img src={swoosh} alt="" />
 						</Link>
-					</p>
+					</div>
 				</div>
 			</div>
 			<img className="img-half" src={img} alt="" />

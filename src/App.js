@@ -1,6 +1,7 @@
 import AuthProvider from './contexts/AuthContext';
 import { Routes, Route } from 'react-router-dom';
 
+import RequireAuth from './components/RequireAuth';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Dashboard from './pages/Dashboard';
@@ -12,11 +13,33 @@ function App() {
 	return (
 		<div className="app-container">
 			<AuthProvider>
-				{/* <Navigation /> */}
+				<Navigation />
 				<Routes>
-					<Route path="/" element={<Dashboard />} />
-					<Route path="settings" element={<Settings />} />
-					<Route path="transactions" element={<Transactions />} />
+					<Route
+						path="/"
+						element={
+							<RequireAuth>
+								<Dashboard />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="settings"
+						element={
+							<RequireAuth>
+								<Settings />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="transactions"
+						element={
+							<RequireAuth>
+								<Transactions />
+							</RequireAuth>
+						}
+					/>
+
 					<Route path="signin" element={<SignIn />} />
 					<Route path="signup" element={<SignUp />} />
 					<Route />

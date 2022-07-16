@@ -13,7 +13,7 @@ import googleIcon from '../../assets/icons/Google.svg';
 import swoosh from '../../assets/swoosh.svg';
 
 export default function Signup() {
-	const { login } = useAuth();
+	const { login, signInGoogle } = useAuth();
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState({
@@ -112,15 +112,19 @@ export default function Signup() {
 							class="btn btn-secondary"
 							value="Sign in with google"
 							disabled={loading}
+							onClick={(e) => {
+								e.preventDefault();
+								signInGoogle(setLoading, navigate, setErrors);
+							}}
 						/>
 					</form>
-					<p className="redirect">
-						Don't have an account
+					<div className="redirect">
+						<p>Don't have an account</p>
 						<Link to="/signup">
 							Sign up for free
 							<img src={swoosh} alt="" />
 						</Link>
-					</p>
+					</div>
 				</div>
 			</div>
 			<img className="img-half" src={img} alt="" />
