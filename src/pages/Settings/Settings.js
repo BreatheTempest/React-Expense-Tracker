@@ -25,12 +25,13 @@ export default function Settings() {
           label="First Name"
           type="text"
           placeholder="Mahfuzul"
+          className="settings-input-stretch"
         />
-        <Input name="last-name" label="Last Name" type="text" placeholder="Nabil" />
+        <Input name="last-name" label="Last Name" type="text" placeholder="Nabil" className="settings-input-stretch" />
       </div>
       <div className="settings-input-containers">
-        <Input label="Date of Birth" />
-        <Input label="Mobile Number" />
+        <Input label="Date of Birth" className="settings-input-stretch"/>
+        <Input label="Mobile Number" className="settings-input-stretch"/>
       </div>
       <Input
         name="email"
@@ -44,15 +45,17 @@ export default function Settings() {
           type="password"
           placeholder="••••••"
           name="password"
+          className="settings-input-stretch"
         />
         <Input
           label="Confirm Password"
           type="password"
           placeholder="••••••"
           name="confirm-password"
+          className="settings-input-stretch"
         />
       </div>
-      <button>Update</button>
+      <button className="settings-button">Update</button>
     </div>
   );
 }

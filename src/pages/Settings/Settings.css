@@ -16,10 +16,23 @@
 
 .settings-input-containers{
     display: flex;
-    width: 80%;
+    gap: 3rem;
+    width: 100%;
+}
+
+.settings-input-stretch {
+    width: 100%;
 }
 
 .settings-header {
     display: flex;
     justify-content: space-between;
+}
+
+.settings-button {
+    align-self: flex-start;
+    padding: 1em 5em;
+    border: none;
+    background-color: var(--clr-primary);
+    border-radius: 1rem;
 }
