@@ -11,7 +11,7 @@ import Button from '../Button';
 import './Navigation.css';
 
 export default function Navigation() {
-	const { logout, currentUser, userDetails } = useAuth();
+	const { logout, currentUser } = useAuth();
 
 	return (
 		<div
@@ -23,11 +23,10 @@ export default function Navigation() {
 				<h2>Maglo.</h2>
 			</div>
 			<nav className="nav-links">
-				{userDetails && userDetails.displayName}
 				<NavLink to="/">
 					<img src={Dashboard} alt={Dashboard} /> Dashboard
 				</NavLink>
-				<NavLink to="expenses">
+				<NavLink to="transactions">
 					<img src={Transactions} alt={Transactions} />
 					Expenses
 				</NavLink>

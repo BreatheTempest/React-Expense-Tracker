@@ -1,0 +1,32 @@
+.dashboard {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 40px;
+	margin-inline: 40px;
+}
+
+.recent-expenses {
+	display: grid;
+	gap: 20px;
+}
+
+.expenses-title {
+	display: flex;
+	justify-content: space-between;
+}
+
+.expenses-title h2 {
+	font-size: var(--font-size-600);
+	font-weight: var(--font-weight-semi-bold);
+}
+
+.columns {
+	display: grid;
+	grid-template-columns: 2fr 1fr 1fr 1fr;
+	font-size: var(--font-size-300);
+	color: var(--font-clr-secondary-200);
+}
+
+.columns :not(:first-child) {
+	text-align: center;
+}

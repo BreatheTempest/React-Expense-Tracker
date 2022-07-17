@@ -86,7 +86,7 @@ export default function AuthProvider({ children }) {
 			}
 		};
 		getUserDetails();
-	}, [currentUser]);
+	}, [currentUser, userDetails]);
 
 	const value = {
 		currentUser,

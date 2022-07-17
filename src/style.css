@@ -12,7 +12,7 @@
 
 html,
 body {
-	height: 100vh;
+	min-height: 100vh;
 	width: 100%;
 }
 
@@ -79,6 +79,9 @@ html:focus-within {
 .app-container {
 	background-color: var(--bg-clr-primary);
 	color: var(--font-clr-primary);
+	min-height: 100vh;
+	display: flex;
+	flex-grow: 1;
 }
 
 .logo {
@@ -89,20 +92,44 @@ html:focus-within {
 	font-weight: var(--font-weight-bold);
 }
 
-.app-container {
-	height: 100vh;
-	display: flex;
-	flex-grow: 1;
-}
-
 .page-container {
 	width: 100%;
 }
 
 .dark-mode {
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	right: 0;
 	margin: 10px;
 	z-index: 1;
+}
+
+/* Input Styling */
+
+.input-element {
+	display: flex;
+	flex-direction: column;
+	font-weight: var(--font-weight-medium);
+	font-size: var(--font-size-400);
+}
+
+.label {
+	display: flex;
+}
+
+.label p {
+	margin-left: auto;
+	color: red;
+}
+
+.input-element label {
+	margin-bottom: 10px;
+}
+
+.input-element input {
+	border: 2px solid #f2f2f2;
+	border-radius: 10px;
+	font-weight: var(--font-weight-medium);
+	font-size: var(--font-size-500);
+	padding: 15px 20px;
 }

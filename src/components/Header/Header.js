@@ -8,7 +8,7 @@ import { useAuth } from '../../contexts/AuthContext';
 export default function Header() {
 	const [title, setTitle] = useState('');
 	const location = useLocation();
-	const { currentUser } = useAuth();
+	const { currentUser, userDetails } = useAuth();
 
 	useEffect(() => {
 		setTitle(changeTitle());
@@ -30,11 +30,19 @@ export default function Header() {
 			className="header-container"
 			style={{ display: currentUser ? '' : 'none' }}
 		>
-			<h1>{title}</h1>
+			<h2>{title}</h2>
 			<div className="header-profile">
 				<p>
-					<img src={ProfilePicture} alt={ProfilePicture} />
-					Mahfuzul Nabil
+					{currentUser && currentUser.photoURL && (
+						<img
+							className="picture"
+							src={currentUser.photoURL}
+							alt={ProfilePicture}
+						/>
+					)}
+					{userDetails.firstName
+						? userDetails.firstName
+						: userDetails.displayName}
 				</p>
 				<img src={ArrowDown} alt={ArrowDown} />
 			</div>
