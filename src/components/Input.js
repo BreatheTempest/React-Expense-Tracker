@@ -12,7 +12,7 @@ export default function Input(props) {
 				onChange={props.handleInput}
 				placeholder={props.placeholder}
 				autoComplete={props.autoComplete}
-				required
+				required={props.required}
 			/>
 		</div>
 	);

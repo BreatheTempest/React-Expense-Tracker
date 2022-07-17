@@ -16,4 +16,5 @@
 .password-options button {
 	font-size: var(--font-size-400);
 	font-weight: var(--font-weight-medium);
+	color: inherit;
 }

@@ -9,8 +9,11 @@ import {
 	updateProfile,
 	GoogleAuthProvider,
 	signInWithPopup,
+	updateEmail,
+	updatePassword,
 } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
+import { getDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
 
 const AuthContext = createContext();
 
@@ -20,6 +23,7 @@ export function useAuth() {
 
 export default function AuthProvider({ children }) {
 	const [currentUser, setCurrentUser] = useState();
+	const [userDetails, setUserDetails] = useState({});
 	const [loading, setLoading] = useState(true);
 	const provider = new GoogleAuthProvider();
 
@@ -46,22 +50,55 @@ export default function AuthProvider({ children }) {
 			displayName: name,
 		});
 	}
+	function updateUsersEmail(email) {
+		return updateEmail(currentUser, email);
+	}
+	function updateUsersPassword(password) {
+		return updatePassword(currentUser, password);
+	}
+	function updateUser(update) {
+		return updateDoc(doc(db, 'users', currentUser.uid), update);
+	}
 
 	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged((user) => [
-			setCurrentUser(user),
-			setLoading(false),
-		]);
+		const unsubscribe = auth.onAuthStateChanged((user) => {
+			setCurrentUser(user);
+			setLoading(false);
+		});
 		return unsubscribe;
 	}, []);
 
+	useEffect(() => {
+		const getUserDetails = async () => {
+			if (currentUser) {
+				const docRef = doc(db, 'users', currentUser.uid);
+				const docSnap = await getDoc(docRef);
+				if (docSnap.exists()) {
+					setUserDetails(docSnap.data());
+				} else {
+					const userInfo = {
+						email: currentUser.email,
+						displayName: currentUser.displayName,
+					};
+					await setDoc(docRef, userInfo);
+					setUserDetails(userInfo);
+				}
+			}
+		};
+		getUserDetails();
+	}, [currentUser]);
+
 	const value = {
 		currentUser,
+		userDetails,
 		signup,
 		login,
 		signInGoogle,
 		logout,
+		updateUsersEmail,
+		updateUsersPassword,
 		setDisplayName,
+		updateUser,
 	};
 	return (
 		<AuthContext.Provider value={value}>
