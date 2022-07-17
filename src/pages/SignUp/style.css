@@ -51,34 +51,6 @@
 	font-size: var(--font-size-500);
 }
 
-.input-element {
-	display: flex;
-	flex-direction: column;
-	font-weight: var(--font-weight-medium);
-	font-size: var(--font-size-400);
-}
-
-.label {
-	display: flex;
-}
-
-.label p {
-	margin-left: auto;
-	color: red;
-}
-
-.input-element label {
-	margin-bottom: 10px;
-}
-
-.input-element input {
-	border: 1px solid #f2f2f2;
-	border-radius: 10px;
-	font-weight: var(--font-weight-medium);
-	font-size: var(--font-size-500);
-	padding: 15px 20px;
-}
-
 .form-container .btn {
 	width: 100%;
 	font-weight: var(--font-weight-regular);

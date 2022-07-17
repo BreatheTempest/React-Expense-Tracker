@@ -1,6 +1,6 @@
 export default function Input(props) {
 	return (
-		<div className="input-element">
+		<div className={`input-element ${props.class ? props.class : ''}`}>
 			<div className="label">
 				<label htmlFor={props.name}>{props.label}</label>
 				<p>{props.error}</p>
@@ -13,6 +13,8 @@ export default function Input(props) {
 				placeholder={props.placeholder}
 				autoComplete={props.autoComplete}
 				required={props.required}
+				id={props.name}
+				readOnly={props.readOnly}
 			/>
 		</div>
 	);
