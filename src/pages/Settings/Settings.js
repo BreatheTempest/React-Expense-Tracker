@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -48,7 +48,7 @@ export default function Settings() {
 
 	return (
 		<section className="settings">
-			<form className="settings-container" onSubmit={handleSubmit}>
+			<form className="settings-container">
 				<div className="settings-title span-two">
 					<h2>Account Information</h2>
 					<p>Update your account information</p>
@@ -59,7 +59,10 @@ export default function Settings() {
 						class="settings-edit"
 						icon={Edit}
 						value="Edit"
-						onClick={() => setEditSettings((prev) => !prev)}
+						onClick={(e) => {
+							setEditSettings((prev) => !prev);
+							e.preventDefault();
+						}}
 					/>
 				</div>
 				<Input
@@ -128,11 +131,12 @@ export default function Settings() {
 					/>
 					<Button
 						icon={eye}
-						onClick={() =>
+						onClick={(e) => {
 							setPasswordInput((prev) =>
 								prev === 'password' ? 'text' : 'password'
-							)
-						}
+							);
+							e.preventDefault();
+						}}
 					/>
 				</div>
 				<div className="icon-input password">
@@ -149,14 +153,17 @@ export default function Settings() {
 					/>
 					<Button
 						icon={eye}
-						onClick={() =>
+						onClick={(e) => {
 							setPasswordConfirmInput((prev) =>
 								prev === 'password' ? 'text' : 'password'
-							)
-						}
+							);
+							e.preventDefault();
+						}}
 					/>
 				</div>
-				{editSettings && <Button class="settings-btn" value="Update" />}
+				{editSettings && (
+					<Button class="settings-btn" value="Update" onSubmit={handleSubmit} />
+				)}
 			</form>
 		</section>
 	);
