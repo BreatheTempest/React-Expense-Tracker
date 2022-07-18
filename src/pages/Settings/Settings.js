@@ -162,7 +162,11 @@ export default function Settings() {
 					/>
 				</div>
 				{editSettings && (
-					<Button class="settings-btn" value="Update" onSubmit={handleSubmit} />
+					<Button
+						class="settings-btn"
+						value="Update"
+						onClick={(e) => handleSubmit(e)}
+					/>
 				)}
 			</form>
 		</section>

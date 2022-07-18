@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import Expense from '../../components/Expense/Expense';
+import Spending from '../../components/Spending/Spending';
 import Button from '../../components/Button';
 import './style.css';
+
+import expand from '../../assets/icons/expand-right.svg';
+import wallet from '../../assets/icons/wallet.svg';
 
 export default function Dashboard() {
 	const [data, setData] = useState([
@@ -26,12 +30,16 @@ export default function Dashboard() {
 	return (
 		<div className="dashboard">
 			<section className="right-section">
-				<div className="spending"></div>
+				<div className="spending">
+					<Spending icon={wallet} rate="Total spending" value="$5340.21" />
+					<Spending icon={wallet} rate="Monthly spending" value="$250.80" />
+					<Spending icon={wallet} rate="Daily spending" value="$10.25" />
+				</div>
 				<div className="graph"></div>
 				<div className="recent-expenses">
 					<div className="expenses-title">
 						<h2>Recent Expenses</h2>
-						<Button value="View All" />
+						<Button value="View All" icon={expand} />
 					</div>
 					<div className="columns">
 						<p>NAME/BUSINESS</p>
@@ -45,7 +53,7 @@ export default function Dashboard() {
 			<section className="recurring">
 				<div className="expenses-title">
 					<h2>Recurring Expenses</h2>
-					<Button value="View All" />
+					<Button value="View All" icon={expand} />
 				</div>
 			</section>
 		</div>
