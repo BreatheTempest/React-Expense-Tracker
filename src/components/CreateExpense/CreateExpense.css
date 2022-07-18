@@ -1,0 +1,35 @@
+.overlay {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 100;
+}
+
+.create-expense {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: var(--bg-clr-primary);
+	display: grid;
+	padding: 82px 40px 27px;
+	box-shadow: 3px -5px 35px rgba(205, 205, 212, 0.1);
+	border-radius: 20px;
+}
+
+.date-modal {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+}
+
+.date .checkbox {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	gap: 10px;
+}
+
+.date .checkbox label {
+	margin-bottom: 0;
+}

@@ -4,6 +4,15 @@
 	margin-inline: 40px;
 }
 
+.expenses-top-bar {
+	display: flex;
+	gap: 20px;
+}
+
+.expenses-top-bar button:nth-child(2) {
+	margin-left: auto;
+}
+
 .expenses-categories {
 	display: grid;
 	grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 0.5fr;
