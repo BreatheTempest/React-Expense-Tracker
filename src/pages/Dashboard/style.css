@@ -32,13 +32,13 @@
 	font-weight: var(--font-weight-semi-bold);
 }
 
-.columns {
+.dashboard-categories {
 	display: grid;
 	grid-template-columns: 1.5fr 1fr 1fr 1fr;
 	font-size: var(--font-size-300);
 	color: var(--font-clr-secondary-200);
 }
 
-.columns :not(:first-child) {
+.dashboard-categories :not(:first-child) {
 	text-align: center;
 }

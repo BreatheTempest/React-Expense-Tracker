@@ -5,7 +5,7 @@ import Button from '../../components/Button';
 import './style.css';
 
 import expand from '../../assets/icons/expand-right.svg';
-import wallet from '../../assets/icons/wallet.svg';
+import wallet from '../../components/icons/wallet.svg';
 import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
@@ -23,11 +23,13 @@ export default function Dashboard() {
 
 	const expenses = data.map((expense) => (
 		<Expense
+			img={wallet}
 			key={expense.date}
 			title={expense.title}
 			type={expense.type}
 			amount={expense.amount}
 			date={expense.date}
+			class="expense-dashboard"
 		/>
 	));
 
@@ -49,7 +51,7 @@ export default function Dashboard() {
 							onClick={() => navigate('transactions')}
 						/>
 					</div>
-					<div className="columns">
+					<div className="dashboard-categories">
 						<p>NAME/BUSINESS</p>
 						<p>TYPE</p>
 						<p>AMOUNT</p>
