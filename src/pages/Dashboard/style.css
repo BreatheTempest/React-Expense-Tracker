@@ -5,6 +5,18 @@
 	margin-inline: 40px;
 }
 
+.right-section {
+	display: grid;
+	gap: 30px;
+}
+
+.spending {
+	display: grid;
+	width: 100%;
+	gap: 25px;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
 .recent-expenses {
 	display: grid;
 	gap: 20px;
@@ -20,13 +32,13 @@
 	font-weight: var(--font-weight-semi-bold);
 }
 
-.columns {
+.dashboard-categories {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr 1fr;
+	grid-template-columns: 1.5fr 1fr 1fr 1fr;
 	font-size: var(--font-size-300);
 	color: var(--font-clr-secondary-200);
 }
 
-.columns :not(:first-child) {
+.dashboard-categories :not(:first-child) {
 	text-align: center;
 }

@@ -1,0 +1,16 @@
+.expenses {
+	display: grid;
+	gap: 40px;
+	margin-inline: 40px;
+}
+
+.expenses-categories {
+	display: grid;
+	grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 0.5fr;
+	font-size: var(--font-size-300);
+	color: var(--font-clr-secondary-200);
+}
+
+.expenses-categories :not(:first-child) {
+	text-align: center;
+}

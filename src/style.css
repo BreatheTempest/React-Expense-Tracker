@@ -73,6 +73,7 @@ html:focus-within {
 
 .dark {
 	--bg-clr-primary: #1c1a2e;
+	--bg-clr-secondary: #201e34;
 	--font-clr-primary: #ffffff;
 }
 
@@ -97,6 +98,9 @@ html:focus-within {
 }
 
 .dark-mode {
+	padding: 10px;
+	background-color: var(--bg-clr-secondary);
+	border-radius: 8px;
 	position: fixed;
 	bottom: 0;
 	right: 0;
@@ -127,7 +131,7 @@ html:focus-within {
 }
 
 .input-element input {
-	border: 2px solid #f2f2f2;
+	border: 1px solid #f2f2f2;
 	border-radius: 10px;
 	font-weight: var(--font-weight-medium);
 	font-size: var(--font-size-500);

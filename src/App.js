@@ -9,21 +9,20 @@ import Settings from './pages/Settings/Settings';
 import Transactions from './pages/Transactions';
 import Navigation from './components/Navigation/Navigation';
 import Header from './components/Header/Header';
-import { useState } from 'react';
+
+import { useDarkMode } from './contexts/DarkModeContext';
 
 function App() {
-	const [darkMode, setDarkMode] = useState(false);
+	const { darkMode, changeMode } = useDarkMode();
+
 	return (
 		<div className={`app-container ${darkMode ? 'dark' : ''}`}>
 			<AuthProvider>
-				<button
-					className="dark-mode"
-					onClick={() => setDarkMode((prev) => !prev)}
-				>
-					Dark Mode
-				</button>
 				<Navigation />
 				<div className="page-container">
+					<button className="dark-mode" onClick={changeMode}>
+						Dark Mode
+					</button>
 					<Header />
 					<Routes>
 						<Route

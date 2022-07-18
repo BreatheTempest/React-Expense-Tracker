@@ -18,7 +18,7 @@ export default function Header() {
 		switch (window.location.pathname) {
 			case '/settings':
 				return 'Settings';
-			case '/expenses':
+			case '/transactions':
 				return 'Expenses';
 			default:
 				return 'Dashboard';

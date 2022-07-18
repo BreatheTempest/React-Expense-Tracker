@@ -1,0 +1,24 @@
+.spending-card {
+	display: flex;
+	gap: 15px;
+	padding: 24px 20px;
+	background-color: var(--bg-clr-secondary);
+	border-radius: 10px;
+	align-items: center;
+}
+
+.spending-card img {
+	background-color: #ebe8e8;
+	padding: 11px;
+	border-radius: 50%;
+}
+
+.spending-card p {
+	color: var(--font-clr-secondary-200);
+	font-size: var(--font-size-400);
+}
+
+.spending-card h3 {
+	font-size: 24px;
+	font-weight: var(--font-weight-bold);
+}

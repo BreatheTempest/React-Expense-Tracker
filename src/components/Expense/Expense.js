@@ -4,8 +4,11 @@ import Button from '../Button';
 
 export default function Expense(props) {
 	return (
-		<div className="expense">
-			<div className="name">{props.title}</div>
+		<div className={props.class}>
+			<div className="name">
+				{props.img && <img src={props.img} alt="" />}
+				<p>{props.title}</p>
+			</div>
 			<div className="type">{props.type}</div>
 			<div className="amount">{props.amount}</div>
 			<div className="date">{props.date}</div>

@@ -13,7 +13,7 @@ import {
 	updatePassword,
 } from 'firebase/auth';
 import { auth, db } from '../firebase';
-import { getDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
+import { getDoc, doc, setDoc, updateDoc, onSnapshot } from 'firebase/firestore';
 
 const AuthContext = createContext();
 
@@ -86,7 +86,17 @@ export default function AuthProvider({ children }) {
 			}
 		};
 		getUserDetails();
-	}, [currentUser, userDetails]);
+	}, [currentUser]);
+
+	useEffect(() => {
+		if (currentUser) {
+			const docRef = doc(db, 'users', currentUser.uid);
+			onSnapshot(docRef, async (doc) => {
+				const info = await doc.data();
+				setUserDetails(info);
+			});
+		}
+	}, [userDetails]);
 
 	const value = {
 		currentUser,
