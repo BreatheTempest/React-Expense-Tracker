@@ -1,4 +1,3 @@
-import AuthProvider from './contexts/AuthContext';
 import { Routes, Route } from 'react-router-dom';
 
 import RequireAuth from './components/RequireAuth';
@@ -17,45 +16,43 @@ function App() {
 
 	return (
 		<div className={`app-container ${darkMode ? 'dark' : ''}`}>
-			<AuthProvider>
-				<Navigation />
-				<div className="page-container">
-					<button className="dark-mode" onClick={changeMode}>
-						Dark Mode
-					</button>
-					<Header />
-					<Routes>
-						<Route
-							path="/"
-							element={
-								<RequireAuth>
-									<Dashboard />
-								</RequireAuth>
-							}
-						/>
-						<Route
-							path="settings"
-							element={
-								<RequireAuth>
-									<Settings />
-								</RequireAuth>
-							}
-						/>
-						<Route
-							path="transactions"
-							element={
-								<RequireAuth>
-									<Transactions />
-								</RequireAuth>
-							}
-						/>
+			<Navigation />
+			<div className="page-container">
+				<button className="dark-mode" onClick={changeMode}>
+					Dark Mode
+				</button>
+				<Header />
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<RequireAuth>
+								<Dashboard />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="settings"
+						element={
+							<RequireAuth>
+								<Settings />
+							</RequireAuth>
+						}
+					/>
+					<Route
+						path="transactions"
+						element={
+							<RequireAuth>
+								<Transactions />
+							</RequireAuth>
+						}
+					/>
 
-						<Route path="signin" element={<SignIn />} />
-						<Route path="signup" element={<SignUp />} />
-						<Route />
-					</Routes>
-				</div>
-			</AuthProvider>
+					<Route path="signin" element={<SignIn />} />
+					<Route path="signup" element={<SignUp />} />
+					<Route />
+				</Routes>
+			</div>
 		</div>
 	);
 }

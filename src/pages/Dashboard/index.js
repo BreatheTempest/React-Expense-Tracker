@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Expense from '../../components/Expense/Expense';
 import Spending from '../../components/Spending/Spending';
 import Button from '../../components/Button';
@@ -7,24 +6,17 @@ import './style.css';
 import expand from '../../assets/icons/expand-right.svg';
 import wallet from '../../components/icons/wallet.svg';
 import { useNavigate } from 'react-router-dom';
+import { useExpenses } from '../../contexts/ExpensesContext';
 
 export default function Dashboard() {
-	const [data, setData] = useState([
-		{
-			title: 'Netflix',
-			amount: '$15',
-			type: 'Entertainment',
-			date: '06.06.06',
-			invoice: '1234',
-		},
-	]);
+	const { expenses } = useExpenses();
 
 	const navigate = useNavigate();
 
-	const expenses = data.map((expense) => (
+	const expensesArr = expenses.map((expense) => (
 		<Expense
 			img={wallet}
-			key={expense.date}
+			key={expense.invoice}
 			title={expense.title}
 			type={expense.type}
 			amount={expense.amount}
@@ -57,7 +49,7 @@ export default function Dashboard() {
 						<p>AMOUNT</p>
 						<p>DATE</p>
 					</div>
-					{expenses}
+					{expensesArr}
 				</div>
 			</section>
 			<section className="recurring">
