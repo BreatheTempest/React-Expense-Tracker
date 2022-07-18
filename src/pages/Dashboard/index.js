@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useExpenses } from '../../contexts/ExpensesContext';
 
 export default function Dashboard() {
+	console.log('dashboard');
 	const { expenses } = useExpenses();
 
 	const navigate = useNavigate();

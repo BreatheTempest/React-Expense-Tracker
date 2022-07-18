@@ -29,14 +29,13 @@ export default function ExpensesProvider({ children }) {
 
 	useEffect(() => {
 		if (currentUser) {
-			console.log('hello');
 			onSnapshot(notesRef, async () => {
 				const data = await getDocs(notesRef);
 				const expensesArray = data.docs.map((doc) => doc.data());
 				setExpenses(expensesArray);
 			});
 		}
-	}, []);
+	}, [currentUser]);
 
 	function createExpense(data) {
 		return addDoc(notesRef, data);

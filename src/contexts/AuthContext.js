@@ -60,6 +60,7 @@ export default function AuthProvider({ children }) {
 		return updateDoc(doc(db, 'users', currentUser.uid), update);
 	}
 
+	//Set auth user
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((user) => {
 			setCurrentUser(user);
@@ -92,11 +93,11 @@ export default function AuthProvider({ children }) {
 		if (currentUser) {
 			const docRef = doc(db, 'users', currentUser.uid);
 			onSnapshot(docRef, async (doc) => {
-				const info = await doc.data();
+				const info = doc.data();
 				setUserDetails(info);
 			});
 		}
-	}, [userDetails]);
+	}, []);
 
 	const value = {
 		currentUser,

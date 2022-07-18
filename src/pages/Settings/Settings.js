@@ -12,6 +12,7 @@ import './Settings.css';
 import { useAuth } from '../../contexts/AuthContext';
 
 export default function Settings() {
+	console.log('settings');
 	const { updateUser, updateUsersEmail, updateUsersPassword, userDetails } =
 		useAuth();
 
