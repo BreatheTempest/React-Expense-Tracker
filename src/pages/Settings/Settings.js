@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -12,39 +12,73 @@ import './Settings.css';
 import { useAuth } from '../../contexts/AuthContext';
 
 export default function Settings() {
-	console.log('settings');
 	const { updateUser, updateUsersEmail, updateUsersPassword, userDetails } =
 		useAuth();
 
+	useEffect(() => {
+		setData({
+			firstName: userDetails.firstName,
+			lastName: userDetails.lastName,
+			dateOfBirth: userDetails.dateOfBirth,
+			mobileNumber: userDetails.mobileNumber,
+			email: userDetails.email,
+			password: '',
+			passwordConfirm: '',
+		});
+	}, [userDetails]);
+
 	const [editSettings, setEditSettings] = useState(false);
 
-	const [firstName, setFirstName] = useState(userDetails.firstName);
-	const [lastName, setLastName] = useState(userDetails.lastName);
-	const [dateOfBirth, setDateOfBirth] = useState(userDetails.dateOfBirth);
-	const [mobileNumber, setMobileNumber] = useState(userDetails.mobileNumber);
-	const [email, setEmail] = useState(userDetails.email);
-	const [password, setPassword] = useState('');
-	const [passwordConfirm, setPasswordConfirm] = useState('');
+	const [data, setData] = useState({
+		firstName: '',
+		lastName: '',
+		dateOfBirth: '',
+		mobileNumber: '',
+		email: '',
+		password: '',
+		passwordConfirm: '',
+	});
 
 	const [passwordInput, setPasswordInput] = useState('password');
-	const [passwordConfirmInput, setPasswordConfirmInput] = useState('password');
 
 	async function handleSubmit(e) {
 		e.preventDefault();
-		const userInfo = {
+		const {
 			firstName,
 			lastName,
 			dateOfBirth,
 			mobileNumber,
-		};
-		await updateUser(userInfo);
+			email,
+			password,
+			passwordConfirm,
+		} = data;
+
 		if (email) {
 			await updateUsersEmail(email);
-			await updateUser({ email });
+			try {
+				await updateUser({
+					firstName,
+					lastName,
+					dateOfBirth,
+					mobileNumber,
+					email,
+				});
+			} catch (err) {
+				console.log(err);
+			}
 		}
 		if (password && password === passwordConfirm) {
 			updateUsersPassword(password);
 		}
+		setEditSettings(false);
+	}
+
+	function handleInput(e) {
+		const { name, value } = e.target;
+		setData((prevData) => ({
+			...prevData,
+			[name]: value,
+		}));
 	}
 
 	return (
@@ -67,31 +101,31 @@ export default function Settings() {
 					/>
 				</div>
 				<Input
-					name="first-name"
+					name="firstName"
 					label="First Name"
 					type="text"
 					placeholder="Mahfuzul"
-					value={firstName}
-					handleInput={(e) => setFirstName(e.target.value)}
+					value={data.firstName}
+					handleInput={handleInput}
 					readOnly={!editSettings}
 					icon={Edit}
 				/>
 				<Input
-					name="last-name"
+					name="lastName"
 					label="Last Name"
 					type="text"
 					placeholder="Nabil"
-					value={lastName}
-					handleInput={(e) => setLastName(e.target.value)}
+					value={data.lastName}
+					handleInput={handleInput}
 					readOnly={!editSettings}
 				/>
 				<div className="icon-input">
 					<Input
 						label="Date of Birth"
 						name="dateOfBirth"
-						value={dateOfBirth}
+						value={data.dateOfBirth}
 						placeholder="27/09/1998"
-						handleInput={(e) => setDateOfBirth(e.target.value)}
+						handleInput={handleInput}
 						readOnly={!editSettings}
 					/>
 					<img src={date} alt="" />
@@ -99,10 +133,10 @@ export default function Settings() {
 				<Input
 					label="Mobile Number"
 					name="mobileNumber"
-					value={mobileNumber}
+					value={data.mobileNumber}
 					type="number"
 					placeholder="+123 456 7890"
-					handleInput={(e) => setMobileNumber(e.target.value)}
+					handleInput={handleInput}
 					readOnly={!editSettings}
 				/>
 				<div className="icon-input span-two">
@@ -112,8 +146,8 @@ export default function Settings() {
 						type="email"
 						placeholder="example@gamil.com"
 						autoComplete="email"
-						value={email}
-						handleInput={(e) => setEmail(e.target.value)}
+						value={data.email}
+						handleInput={handleInput}
 						readOnly={!editSettings}
 					/>
 					<img src={emailIcon} alt="" />
@@ -123,11 +157,11 @@ export default function Settings() {
 					<Input
 						label="New Password"
 						type={passwordInput}
-						placeholder="••••••"
+						placeholder={editSettings ? '' : '••••••'}
 						name="password"
-						value={password}
+						value={data.password}
 						autoComplete="new-password"
-						handleInput={(e) => setPassword(e.target.value)}
+						handleInput={handleInput}
 						readOnly={!editSettings}
 					/>
 					<Button
@@ -144,18 +178,18 @@ export default function Settings() {
 					<img src={lock} alt="" className="start" />
 					<Input
 						label="Confirm Password"
-						type={passwordConfirmInput}
-						placeholder="••••••"
-						name="confirm-password"
+						type={passwordInput}
+						placeholder={editSettings ? '' : '••••••'}
+						name="passwordConfirm"
 						autoComplete="new-password"
-						value={passwordConfirm}
-						handleInput={(e) => setPasswordConfirm(e.target.value)}
+						value={data.passwordConfirm}
+						handleInput={handleInput}
 						readOnly={!editSettings}
 					/>
 					<Button
 						icon={eye}
 						onClick={(e) => {
-							setPasswordConfirmInput((prev) =>
+							setPasswordInput((prev) =>
 								prev === 'password' ? 'text' : 'password'
 							);
 							e.preventDefault();

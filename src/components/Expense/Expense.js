@@ -9,10 +9,10 @@ export default function Expense(props) {
 				{props.img && <img src={props.img} alt="" />}
 				<p>{props.title}</p>
 			</div>
-			<div className="type">{props.type}</div>
-			<div className="amount">{props.amount}</div>
-			<div className="date">{props.date}</div>
-			<div className="invoice">{props.invoice}</div>
+			<p className="type">{props.type}</p>
+			<p className="amount">{props.amount}</p>
+			<p className="date">{props.date}</p>
+			<p className="invoice">{props.invoice}</p>
 			{props.edit && <Button value="Edit" onClick={props.edit} />}
 		</div>
 	);

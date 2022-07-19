@@ -40,9 +40,7 @@ export default function Header() {
 							alt={ProfilePicture}
 						/>
 					)}
-					{userDetails.firstName
-						? userDetails.firstName
-						: userDetails.displayName}
+					{currentUser && currentUser.displayName}
 				</p>
 				<img src={ArrowDown} alt={ArrowDown} />
 			</div>

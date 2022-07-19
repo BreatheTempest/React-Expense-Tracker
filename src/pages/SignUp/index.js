@@ -13,7 +13,7 @@ import googleIcon from '../../assets/icons/Google.svg';
 import swoosh from '../../assets/swoosh.svg';
 
 export default function Signup() {
-	const { signup, setDisplayName, signInGoogle } = useAuth();
+	const { signup, setDisplayName, signInGoogle, createUserDetails } = useAuth();
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState({
@@ -35,16 +35,19 @@ export default function Signup() {
 		}));
 	};
 
-	const handleSubmit = (e) => {
+	//Create a user, set a display name, create user details
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (Object.keys(errors).length === 0) {
-			signup(data.email, data.password)
-				.then((newUser) => {
-					setLoading(true);
-					setDisplayName(newUser.user, data.name);
-					navigate('/', { replace: true });
-				})
-				.catch(() => setErrors({ name: 'Failed to create an account' }));
+			try {
+				setLoading(true);
+				const { user } = await signup(data.email, data.password);
+				await setDisplayName(user, data.name);
+				await createUserDetails(user.uid, data.name, data.email);
+				navigate('/', { replace: true });
+			} catch (err) {
+				setErrors({ name: 'Failed to create an account' });
+			}
 		}
 		setLoading(false);
 	};
@@ -106,7 +109,11 @@ export default function Signup() {
 							error={errors.password}
 							autoComplete="password"
 						/>
-						<Button class="btn btn-primary" value="Create Account" />
+						<Button
+							class="btn btn-primary"
+							value="Create Account"
+							disabled={loading}
+						/>
 						<Button
 							icon={googleIcon}
 							class="btn btn-secondary"

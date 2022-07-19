@@ -11,6 +11,7 @@ import {
 	signInWithPopup,
 	updateEmail,
 	updatePassword,
+	onAuthStateChanged,
 } from 'firebase/auth';
 import { auth, db } from '../firebase';
 import { getDoc, doc, setDoc, updateDoc, onSnapshot } from 'firebase/firestore';
@@ -33,13 +34,18 @@ export default function AuthProvider({ children }) {
 	function login(email, password) {
 		return signInWithEmailAndPassword(auth, email, password);
 	}
-	function signInGoogle(setLoading, navigate, setErrors) {
-		signInWithPopup(auth, provider)
-			.then(() => {
-				setLoading(true);
-				navigate('/', { replace: true });
-			})
-			.catch(() => setErrors({ email: 'Failed to create an account' }));
+	async function signInGoogle(setLoading, navigate, setErrors) {
+		try {
+			const { user } = await signInWithPopup(auth, provider);
+			setLoading(true);
+			const docRef = await getDoc(doc(db, 'users', user.uid));
+			if (!docRef.exists()) {
+				createUserDetails(user.uid, user.displayName, user.email);
+			}
+			navigate('/', { replace: true });
+		} catch {
+			setErrors({ email: 'Failed to create an account' });
+		}
 		setLoading(false);
 	}
 	function logout() {
@@ -60,35 +66,28 @@ export default function AuthProvider({ children }) {
 		return updateDoc(doc(db, 'users', currentUser.uid), update);
 	}
 
-	//Set auth user
+	function createUserDetails(uid, name, email) {
+		return setDoc(doc(db, 'users', uid), {
+			displayName: name,
+			email: email,
+			firsName: '',
+			lastName: '',
+			dateOfBirth: '',
+			mobileNumber: '',
+		});
+	}
+
+	//Update auth on change
 	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged((user) => {
+		setLoading(true);
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
 			setCurrentUser(user);
 			setLoading(false);
 		});
 		return unsubscribe;
 	}, []);
 
-	useEffect(() => {
-		const getUserDetails = async () => {
-			if (currentUser) {
-				const docRef = doc(db, 'users', currentUser.uid);
-				const docSnap = await getDoc(docRef);
-				if (docSnap.exists()) {
-					setUserDetails(docSnap.data());
-				} else {
-					const userInfo = {
-						email: currentUser.email,
-						displayName: currentUser.displayName,
-					};
-					await setDoc(docRef, userInfo);
-					setUserDetails(userInfo);
-				}
-			}
-		};
-		getUserDetails();
-	}, [currentUser]);
-
+	//Update user Details on change
 	useEffect(() => {
 		if (currentUser) {
 			const docRef = doc(db, 'users', currentUser.uid);
@@ -97,7 +96,7 @@ export default function AuthProvider({ children }) {
 				setUserDetails(info);
 			});
 		}
-	}, []);
+	}, [currentUser]);
 
 	const value = {
 		currentUser,
@@ -109,6 +108,7 @@ export default function AuthProvider({ children }) {
 		updateUsersEmail,
 		updateUsersPassword,
 		setDisplayName,
+		createUserDetails,
 		updateUser,
 	};
 	return (
