@@ -40,7 +40,10 @@ export default function ExpensesProvider({ children }) {
 	function createExpense(data) {
 		return addDoc(notesRef, data);
 	}
-	const value = { expenses, createExpense };
+	function getExpense(id) {
+		return getDoc(notesRef, id);
+	}
+	const value = { expenses, createExpense, getExpense };
 	return (
 		<ExpensesContext.Provider value={value}>
 			{children}

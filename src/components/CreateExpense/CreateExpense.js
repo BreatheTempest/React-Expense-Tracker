@@ -4,11 +4,13 @@ import Button from '../Button';
 import { createPortal } from 'react-dom';
 import { useState } from 'react';
 export default function CreateExpense(props) {
+	const { title, amount, type, date } = props.currentExpense || {};
+
 	const [data, setData] = useState({
-		title: '',
-		amount: '',
-		type: '',
-		date: '',
+		title: title || '',
+		amount: amount || '',
+		type: type || '',
+		date: date || '',
 		recurring: false,
 	});
 
@@ -23,6 +25,7 @@ export default function CreateExpense(props) {
 	return createPortal(
 		<div className="overlay">
 			<form className="create-expense">
+				<Button value="X" onClick={props.close} />
 				<Input
 					placeholder="Title"
 					handleInput={handleChange}

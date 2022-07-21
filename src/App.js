@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
 
 import RequireAuth from './components/RequireAuth';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Dashboard from './pages/Dashboard';
+import SignIn from './pages/SignIn/SignIn';
+import SignUp from './pages/SignUp/SignUp';
+import Dashboard from './pages/Dashboard/Dashboard';
 import Settings from './pages/Settings/Settings';
-import Transactions from './pages/Transactions';
+import Transactions from './pages/Transactions/Transactions';
 import Navigation from './components/Navigation/Navigation';
 import Header from './components/Header/Header';
 

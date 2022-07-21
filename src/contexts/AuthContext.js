@@ -70,7 +70,7 @@ export default function AuthProvider({ children }) {
 		return setDoc(doc(db, 'users', uid), {
 			displayName: name,
 			email: email,
-			firsName: '',
+			firstName: '',
 			lastName: '',
 			dateOfBirth: '',
 			mobileNumber: '',

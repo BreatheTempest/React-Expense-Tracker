@@ -30,11 +30,11 @@ export default function Settings() {
 	const [editSettings, setEditSettings] = useState(false);
 
 	const [data, setData] = useState({
-		firstName: '',
-		lastName: '',
-		dateOfBirth: '',
-		mobileNumber: '',
-		email: '',
+		firstName: userDetails.firstName,
+		lastName: userDetails.lastName,
+		dateOfBirth: userDetails.dateOfBirth,
+		mobileNumber: userDetails.mobileNumber,
+		email: userDetails.email,
 		password: '',
 		passwordConfirm: '',
 	});

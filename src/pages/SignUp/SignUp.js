@@ -1,4 +1,4 @@
-import './style.css';
+import './SignUp.css';
 
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -13,46 +13,43 @@ import googleIcon from '../../assets/icons/Google.svg';
 import swoosh from '../../assets/swoosh.svg';
 
 export default function Signup() {
-	const { login, signInGoogle } = useAuth();
+	const { signup, setDisplayName, signInGoogle, createUserDetails } = useAuth();
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState({
+		name: '',
 		email: '',
 		password: '',
 	});
 	const [errors, setErrors] = useState({
+		name: '',
 		email: '',
 		password: '',
 	});
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		if (Object.keys(errors).length === 0) {
-			login(data.email, data.password)
-				.then(() => {
-					setLoading(true);
-					navigate('/', { replace: true });
-				})
-				.catch((err) => {
-					if (err.code === 'auth/user-not-found') {
-						setErrors({ email: 'User not found' });
-					} else if (err.code === 'auth/wrong-password') {
-						setErrors({ password: 'Wrong Password' });
-					} else {
-						setErrors({ name: 'Something went wrong' });
-					}
-				});
-		}
-		setLoading(false);
-	};
-
-	const handleChange = async (e) => {
-		e.preventDefault();
+	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setData((prev) => ({
 			...prev,
 			[name]: value,
 		}));
+	};
+
+	//Create a user, set a display name, create user details
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (Object.keys(errors).length === 0) {
+			try {
+				setLoading(true);
+				const { user } = await signup(data.email, data.password);
+				await setDisplayName(user, data.name);
+				await createUserDetails(user.uid, data.name, data.email);
+				navigate('/', { replace: true });
+			} catch (err) {
+				setErrors({ name: 'Failed to create an account' });
+			}
+		}
+		setLoading(false);
 	};
 
 	//Check for errors and set Errors
@@ -70,6 +67,12 @@ export default function Signup() {
 				email: 'Email is incorrect',
 			}));
 		}
+		if (!/^[a-zA-Z\s]+$/g.test(data.name) && data.name !== '') {
+			setErrors((prev) => ({
+				...prev,
+				name: 'Name can contain only letters',
+			}));
+		}
 	}, [data]);
 
 	return (
@@ -78,8 +81,16 @@ export default function Signup() {
 				<div className="form-container">
 					<Logo />
 					<form onSubmit={handleSubmit}>
-						<h2 className="title">Welcome back</h2>
+						<h2 className="title">Create new account</h2>
 						<p className="sub-title">Welcome back! Please enter your details</p>
+						<Input
+							name="name"
+							label="Full Name"
+							placeholder="Mahfuzul Nabil"
+							handleInput={handleChange}
+							value={data.name}
+							error={errors.name}
+						/>
 						<Input
 							name="email"
 							label="Email"
@@ -98,19 +109,15 @@ export default function Signup() {
 							error={errors.password}
 							autoComplete="password"
 						/>
-						<div className="password-options">
-							<Input
-								type="checkbox"
-								name="remember"
-								label="Remember for 30 Days"
-							/>
-							<Button value="Forgot password" />
-						</div>
-						<Button class="btn btn-primary" value="Sign In" />
+						<Button
+							class="btn btn-primary"
+							value="Create Account"
+							disabled={loading}
+						/>
 						<Button
 							icon={googleIcon}
 							class="btn btn-secondary"
-							value="Sign in with google"
+							value="Sign up with google"
 							disabled={loading}
 							onClick={(e) => {
 								e.preventDefault();
@@ -119,9 +126,9 @@ export default function Signup() {
 						/>
 					</form>
 					<div className="redirect">
-						<p>Don't have an account</p>
-						<Link to="/signup">
-							Sign up for free
+						<p>Already have an account?</p>
+						<Link to="/signin">
+							Sing in
 							<img src={swoosh} alt="" />
 						</Link>
 					</div>

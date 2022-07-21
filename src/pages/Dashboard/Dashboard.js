@@ -1,7 +1,7 @@
 import Expense from '../../components/Expense/Expense';
 import Spending from '../../components/Spending/Spending';
 import Button from '../../components/Button';
-import './style.css';
+import './Dashboard.css';
 
 import expand from '../../assets/icons/expand-right.svg';
 import wallet from '../../components/icons/wallet.svg';
