@@ -49,19 +49,17 @@ export default function Transactions() {
 			date: data.date,
 		};
 		if (!currentExpenseId) {
-			console.log('created');
 			await createExpense(id, { ...expenseData, ...invoice });
 		} else {
-			console.log('edited');
 			await updateExpense(currentExpenseId, expenseData);
 		}
 	}
 
 	async function handleDelete() {
+		setIsOpen(false);
 		await deleteExpense(currentExpenseId);
 		setCurrentExpense('');
 		setCurrentExpenseId('');
-		setIsOpen(false);
 	}
 
 	return (
@@ -83,7 +81,7 @@ export default function Transactions() {
 			<div className="expenses-top-bar">
 				<Input />
 				<Button value="Create Expense" onClick={() => setIsOpen(true)} />
-				<Button value="Filters" onClick={() => console.log('click')} />
+				<Button value="Filters" />
 			</div>
 			<div className="expenses-categories">
 				<p>NAME/BUSINESS</p>

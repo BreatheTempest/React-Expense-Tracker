@@ -5,31 +5,79 @@
 	z-index: 100;
 }
 
-.create-expense {
+.modal-expense {
 	position: fixed;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	background-color: var(--bg-clr-primary);
+	color: var(--font-clr-primary);
 	display: grid;
-	padding: 82px 40px 27px;
+	padding: 27px 40px 27px;
 	box-shadow: 3px -5px 35px rgba(205, 205, 212, 0.1);
 	border-radius: 20px;
+	gap: 20px;
 }
 
-.date-modal {
+.modal-expense.dark {
+	box-shadow: 3px -5px 35px rgba(35, 35, 98, 0.2);
+}
+
+.modal-header {
+	display: flex;
+	font-size: var(--font-size-600);
+	font-weight: var(--font-weight-semi-bold);
+	justify-content: space-between;
+	margin-block: 20px;
+}
+
+.modal-header button:hover {
+	color: darkred;
+}
+
+.modal-date {
 	display: flex;
 	gap: 20px;
 	align-items: center;
 }
 
-.date .checkbox {
+.modal-date .checkbox {
 	display: flex;
 	flex-direction: row-reverse;
 	align-items: center;
 	gap: 10px;
 }
 
-.date .checkbox label {
+.modal-date .checkbox label {
 	margin-bottom: 0;
+}
+
+.modal-buttons {
+	display: flex;
+	gap: 20px;
+}
+
+.modal-buttons button {
+	width: 100%;
+	font-size: var(--font-size-400);
+	font-weight: var(--font-weight-semi-bold);
+	transition: color 0.2s, background-color 0.2s;
+	border-radius: 10px;
+	padding-block: 13px;
+}
+
+.modal-buttons .add {
+	color: #1b212d;
+	background-color: var(--clr-primary);
+	border: 1px solid var(--clr-primary);
+}
+
+.modal-buttons .add:hover {
+	background-color: #1b212d;
+	color: var(--clr-primary);
+}
+
+.modal-buttons .delete:hover {
+	background-color: darkred;
+	color: #fff;
 }

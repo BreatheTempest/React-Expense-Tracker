@@ -3,14 +3,21 @@ import Input from '../Input';
 import Button from '../Button';
 import { createPortal } from 'react-dom';
 import { useState } from 'react';
+
+import { useDarkMode } from '../../contexts/DarkModeContext';
+
 export default function CreateExpense(props) {
+	const { darkMode } = useDarkMode();
+
 	const { title, amount, type, date } = props.currentExpense || {};
+
+	const currentDate = new Date().toISOString().substring(0, 10);
 
 	const [data, setData] = useState({
 		title: title || '',
 		amount: amount || '',
 		type: type || '',
-		date: date || '',
+		date: date || currentDate,
 		recurring: false,
 	});
 
@@ -24,8 +31,11 @@ export default function CreateExpense(props) {
 
 	return createPortal(
 		<div className="overlay">
-			<form className="create-expense">
-				<Button value="X" onClick={props.close} />
+			<form className={`modal-expense ${darkMode ? 'dark' : ''}`}>
+				<div className="modal-header">
+					<h3>{props.currentExpense ? 'Edit' : 'Create a New'} Expense</h3>
+					<Button value="x" onClick={props.close} class="close" />
+				</div>
 				<Input
 					placeholder="Title"
 					handleInput={handleChange}
@@ -40,15 +50,15 @@ export default function CreateExpense(props) {
 				/>
 				<Input
 					placeholder="Type"
-					handleInput={(e) => handleChange(e)}
+					handleInput={handleChange}
 					value={data.type}
 					name="type"
 				/>
-				<div className="date-modal">
+				<div className="modal-date">
 					<Input
 						type="date"
 						placeholder="Date"
-						handleInput={(e) => handleChange(e)}
+						handleInput={handleChange}
 						value={data.date}
 						name="date"
 					/>
@@ -57,26 +67,30 @@ export default function CreateExpense(props) {
 						name="Recurring"
 						label="Recurring"
 						class="checkbox"
-						handleInput={(e) => handleChange(e)}
+						handleInput={handleChange}
 					/>
 				</div>
-				<Input type="image" handleInput={(e) => handleChange(e)} />
-				<Button
-					value={props.currentExpense ? 'Edit' : 'Add'}
-					onClick={(e) => {
-						e.preventDefault();
-						props.handleClick(data);
-					}}
-				/>
-				{props.currentExpense && (
+				{/* <Input type="image" handleInput={(e) => handleChange(e)} /> */}
+				<div className="modal-buttons">
 					<Button
-						value="Delete"
+						value={props.currentExpense ? 'Edit' : 'Add'}
+						class="add"
 						onClick={(e) => {
 							e.preventDefault();
-							props.handleDelete();
+							props.handleClick(data);
 						}}
 					/>
-				)}
+					{props.currentExpense && (
+						<Button
+							value="Delete"
+							class="delete"
+							onClick={(e) => {
+								e.preventDefault();
+								props.handleDelete();
+							}}
+						/>
+					)}
+				</div>
 			</form>
 		</div>,
 		document.getElementById('portal')

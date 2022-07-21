@@ -1,10 +1,12 @@
 export default function Input(props) {
 	return (
 		<div className={`input-element ${props.class ? props.class : ''}`}>
-			<div className="label">
-				<label htmlFor={props.name}>{props.label}</label>
-				<p>{props.error}</p>
-			</div>
+			{props.label && (
+				<div className="label">
+					<label htmlFor={props.name}>{props.label}</label>
+					<p>{props.error}</p>
+				</div>
+			)}
 			<input
 				type={props.type}
 				value={props.value}

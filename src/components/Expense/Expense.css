@@ -4,6 +4,7 @@
 }
 .expense-expenses {
 	display: grid;
+	align-items: center;
 	grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 0.5fr;
 }
 
@@ -38,4 +39,22 @@
 	align-items: center;
 	font-size: var(--font-size-400);
 	font-weight: var(--font-weight-medium);
+}
+
+.expense-button {
+	margin-inline: auto;
+	width: fit-content;
+	font-size: var(--font-size-400);
+	font-weight: var(--font-weight-semi-bold);
+	border-radius: 10px;
+	padding: 11px 20px;
+	color: #1b212d;
+	background-color: var(--clr-primary);
+	border: 1px solid var(--clr-primary);
+	transition: color 0.2s, background-color 0.2s;
+}
+
+.expense-button:hover {
+	background-color: #1b212d;
+	color: var(--clr-primary);
 }
