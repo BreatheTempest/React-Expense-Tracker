@@ -1,12 +1,11 @@
 import {
-	getDoc,
 	getDocs,
 	doc,
 	setDoc,
-	updateDoc,
 	onSnapshot,
 	collection,
-	addDoc,
+	deleteDoc,
+	updateDoc,
 } from 'firebase/firestore';
 
 import { createContext, useContext, useState, useEffect } from 'react';
@@ -37,13 +36,17 @@ export default function ExpensesProvider({ children }) {
 		}
 	}, [currentUser]);
 
-	function createExpense(data) {
-		return addDoc(notesRef, data);
+	function createExpense(id, data) {
+		return setDoc(doc(db, 'users', uid, 'expenses', id), data);
 	}
-	function getExpense(id) {
-		return getDoc(notesRef, id);
+	function updateExpense(id, data) {
+		return updateDoc(doc(db, 'users', uid, 'expenses', id), data);
 	}
-	const value = { expenses, createExpense, getExpense };
+	function deleteExpense(id) {
+		return deleteDoc(doc(db, 'users', uid, 'expenses', id));
+	}
+
+	const value = { expenses, createExpense, updateExpense, deleteExpense };
 	return (
 		<ExpensesContext.Provider value={value}>
 			{children}

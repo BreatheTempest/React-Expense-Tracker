@@ -14,7 +14,7 @@ export default function Expense(props) {
 			<p className="date">{props.date}</p>
 			<p className="invoice">{props.invoice}</p>
 			{props.edit && (
-				<Button value="Edit" onClick={() => props.edit(props.invoice)} />
+				<Button value="Edit" onClick={(e) => props.edit(e, props.invoice)} />
 			)}
 		</div>
 	);

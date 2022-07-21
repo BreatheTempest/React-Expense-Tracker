@@ -1,4 +1,4 @@
-import './CreateExpense.css';
+import './ManageExpense.css';
 import Input from '../Input';
 import Button from '../Button';
 import { createPortal } from 'react-dom';
@@ -62,12 +62,21 @@ export default function CreateExpense(props) {
 				</div>
 				<Input type="image" handleInput={(e) => handleChange(e)} />
 				<Button
-					value="Add"
+					value={props.currentExpense ? 'Edit' : 'Add'}
 					onClick={(e) => {
 						e.preventDefault();
 						props.handleClick(data);
 					}}
 				/>
+				{props.currentExpense && (
+					<Button
+						value="Delete"
+						onClick={(e) => {
+							e.preventDefault();
+							props.handleDelete();
+						}}
+					/>
+				)}
 			</form>
 		</div>,
 		document.getElementById('portal')
