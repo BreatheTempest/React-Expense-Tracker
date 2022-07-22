@@ -1,8 +1,8 @@
 import React from 'react';
-import './Expense.css';
+import './Transaction.css';
 import Button from '../Button';
 
-export default function Expense(props) {
+export default function Transaction(props) {
 	return (
 		<div className={props.class}>
 			<div className="name">
@@ -10,12 +10,16 @@ export default function Expense(props) {
 				<p>{props.title}</p>
 			</div>
 			<p className="type">{props.type}</p>
-			<p className="amount">{props.amount}</p>
+			<p
+				className={`amount ${props.mode === 'Expense' ? 'expense' : 'income'}`}
+			>
+				{props.mode === 'Expense' && '-'}${props.amount}
+			</p>
 			<p className="date">{props.date}</p>
 			<p className="invoice">{props.invoice}</p>
 			{props.edit && (
 				<Button
-					class="expense-button"
+					class="transaction-button"
 					value="Edit"
 					onClick={(e) => props.edit(e, props.invoice)}
 				/>

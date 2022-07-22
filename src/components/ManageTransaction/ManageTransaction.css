@@ -5,7 +5,7 @@
 	z-index: 100;
 }
 
-.modal-expense {
+.modal-transaction {
 	position: fixed;
 	left: 50%;
 	top: 50%;
@@ -19,7 +19,7 @@
 	gap: 20px;
 }
 
-.modal-expense.dark {
+.modal-transaction.dark {
 	box-shadow: 3px -5px 35px rgba(35, 35, 98, 0.2);
 }
 
@@ -32,7 +32,7 @@
 }
 
 .modal-header button:hover {
-	color: darkred;
+	color: #e5363d;
 }
 
 .modal-date {
@@ -57,6 +57,17 @@
 	gap: 20px;
 }
 
+.modal-buttons .active {
+	background-color: var(--clr-primary);
+	color: #1b212d;
+}
+
+.modal-buttons .income:hover,
+.modal-buttons .expense:hover {
+	background-color: var(--clr-primary);
+	color: #1b212d;
+}
+
 .modal-buttons button {
 	width: 100%;
 	font-size: var(--font-size-400);
@@ -78,6 +89,50 @@
 }
 
 .modal-buttons .delete:hover {
-	background-color: darkred;
+	background-color: #e5363d;
+	color: #fff;
+}
+
+/* Select css */
+
+.modal-transaction .select__input-container {
+	color: var(--font-clr-primary);
+}
+
+.modal-transaction .select__control {
+	background-color: var(--bg-clr-primary);
+	color: var(--font-clr-primary);
+	border-radius: 10px;
+	font-weight: var(--font-weight-medium);
+	font-size: var(--font-size-500);
+	padding: 7.5px 10px;
+}
+
+.modal-transaction .select__single-value {
+	color: var(--font-clr-primary);
+}
+
+.modal-transaction .select__menu {
+	background-color: var(--bg-clr-primary);
+	color: var(--font-clr-primary);
+	border-radius: 10px;
+}
+
+.modal-transaction .select__option {
+	transition: color 0.2s, background-color 0.2s;
+}
+
+.modal-transaction .select__option:hover {
+	color: var(--bg-clr-primary);
+	background-color: var(--font-clr-primary);
+}
+
+.modal-transaction .select__option--is-selected {
+	background-color: var(--clr-primary);
+	color: #1c1a2e;
+}
+
+.modal-transaction .select__option--is-focused {
+	background-color: inherit;
 	color: #fff;
 }

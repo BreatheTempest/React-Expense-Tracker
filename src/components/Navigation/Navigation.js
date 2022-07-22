@@ -25,7 +25,7 @@ export default function Navigation() {
 				</NavLink>
 				<NavLink to="transactions">
 					<img src={Transactions} alt={Transactions} />
-					Expenses
+					Transactions
 				</NavLink>
 				<NavLink to="settings">
 					<img src={Settings} alt={Settings} />

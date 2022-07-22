@@ -1,4 +1,4 @@
-import Expense from '../../components/Expense/Expense';
+import Transaction from '../../components/Transaction/Transaction';
 import Spending from '../../components/Spending/Spending';
 import Button from '../../components/Button';
 import './Dashboard.css';
@@ -6,15 +6,15 @@ import './Dashboard.css';
 import expand from '../../assets/icons/expand-right.svg';
 import wallet from '../../components/icons/wallet.svg';
 import { useNavigate } from 'react-router-dom';
-import { useExpenses } from '../../contexts/ExpensesContext';
+import { useTransactions } from '../../contexts/TransactionsContext';
 
 export default function Dashboard() {
-	const { expenses } = useExpenses();
+	const { transactions } = useTransactions();
 
 	const navigate = useNavigate();
 
-	const expensesArr = expenses.map((expense) => (
-		<Expense
+	const expensesArr = transactions.map((expense) => (
+		<Transaction
 			img={wallet}
 			key={expense.invoice}
 			title={expense.title}

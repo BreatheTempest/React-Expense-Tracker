@@ -1,20 +1,20 @@
-.expenses {
+.transactions {
 	display: grid;
 	gap: 40px;
 	margin-inline: 40px;
 }
 
-.expenses-top-bar {
+.transactions-top-bar {
 	display: flex;
 	gap: 20px;
 }
 
-.expenses-top-bar button {
+.transactions-top-bar button {
 	font-size: var(--font-size-400);
 	font-weight: var(--font-weight-semi-bold);
 }
 
-.expenses-top-bar button:nth-child(2) {
+.transactions-top-bar button:nth-child(2) {
 	margin-left: auto;
 	border-radius: 10px;
 	padding: 16px 22px;
@@ -24,18 +24,18 @@
 	transition: color 0.2s, background-color 0.2s;
 }
 
-.expenses-top-bar button:nth-child(2):hover {
+.transactions-top-bar button:nth-child(2):hover {
 	background-color: #1b212d;
 	color: var(--clr-primary);
 }
 
-.expenses-categories {
+.transactions-categories {
 	display: grid;
 	grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 0.5fr;
 	font-size: var(--font-size-300);
 	color: var(--font-clr-secondary-200);
 }
 
-.expenses-categories :not(:first-child) {
+.transactions-categories :not(:first-child) {
 	text-align: center;
 }

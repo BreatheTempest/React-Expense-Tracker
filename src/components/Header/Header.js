@@ -8,7 +8,7 @@ import { useAuth } from '../../contexts/AuthContext';
 export default function Header() {
 	const [title, setTitle] = useState('');
 	const location = useLocation();
-	const { currentUser, userDetails } = useAuth();
+	const { currentUser } = useAuth();
 
 	useEffect(() => {
 		setTitle(changeTitle());
@@ -19,7 +19,7 @@ export default function Header() {
 			case '/settings':
 				return 'Settings';
 			case '/transactions':
-				return 'Expenses';
+				return 'Transactions';
 			default:
 				return 'Dashboard';
 		}

@@ -131,9 +131,17 @@ html:focus-within {
 }
 
 .input-element input {
+	background-color: var(--bg-clr-primary);
+	color: var(--font-clr-primary);
 	border: 1px solid #f2f2f2;
 	border-radius: 10px;
 	font-weight: var(--font-weight-medium);
 	font-size: var(--font-size-500);
 	padding: 15px 20px;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }

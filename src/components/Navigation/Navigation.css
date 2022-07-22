@@ -22,6 +22,7 @@
 	color: var(--font-clr-secondary-200);
 	font-size: var(--font-size-400);
 	font-weight: var(--font-weight-medium);
+	transition: color 0.2s, background-color 0.2s;
 }
 
 .nav-links .active,

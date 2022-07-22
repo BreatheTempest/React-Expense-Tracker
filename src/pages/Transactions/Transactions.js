@@ -1,89 +1,100 @@
 import './Transactions.css';
 import { nanoid } from 'nanoid';
 import wallet from '../../components/icons/wallet.svg';
-import Expense from '../../components/Expense/Expense';
-import { useExpenses } from '../../contexts/ExpensesContext';
+import Transaction from '../../components/Transaction/Transaction';
+import { useTransactions } from '../../contexts/TransactionsContext';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import ManageExpense from '../../components/ManageExpense/ManageExpense';
+import ManageTransaction from '../../components/ManageTransaction/ManageTransaction';
 import { useState } from 'react';
 
 export default function Transactions() {
-	const { expenses, createExpense, updateExpense, deleteExpense } =
-		useExpenses();
+	const {
+		transactions,
+		createTransaction,
+		updateTransaction,
+		deleteTransaction,
+	} = useTransactions();
 	const [isOpen, setIsOpen] = useState(false);
-	const [currentExpenseId, setCurrentExpenseId] = useState('');
-	const [currentExpense, setCurrentExpense] = useState('');
+	const [currentTransactionId, setCurrentTransactionId] = useState('');
+	const [currentTransaction, setCurrentTransaction] = useState('');
 
-	const expensesArr = expenses.map((expense) => (
-		<Expense
+	const transactionsArr = transactions.map((transaction) => (
+		<Transaction
 			img={wallet}
-			key={expense.invoice}
-			title={expense.title}
-			type={expense.type}
-			amount={expense.amount}
-			date={expense.date}
-			invoice={expense.invoice}
+			mode={transaction.transaction}
+			key={transaction.invoice}
+			title={transaction.title}
+			type={transaction.type}
+			amount={transaction.amount}
+			date={transaction.date}
+			invoice={transaction.invoice}
 			edit={edit}
-			class="expense-expenses"
+			class="transaction-transactions"
 		/>
 	));
 
 	async function edit(e, id) {
 		e.stopPropagation();
-		setCurrentExpenseId(id);
-		setCurrentExpense(expenses.find((expense) => expense.invoice === id));
+		setCurrentTransactionId(id);
+		setCurrentTransaction(
+			transactions.find((transaction) => transaction.invoice === id)
+		);
 		setIsOpen(true);
 	}
 
 	async function handleSubmit(data) {
+		console.log(data);
 		setIsOpen(false);
 		const id = nanoid();
 		const invoice = {
 			invoice: id,
 		};
-		const expenseData = {
+		const transactionData = {
+			transaction: data.transaction,
 			title: data.title,
 			type: data.type,
 			amount: data.amount,
 			date: data.date,
 		};
-		if (!currentExpenseId) {
-			await createExpense(id, { ...expenseData, ...invoice });
+		if (!currentTransactionId) {
+			await createTransaction(id, { ...transactionData, ...invoice });
 		} else {
-			await updateExpense(currentExpenseId, expenseData);
+			await updateTransaction(currentTransactionId, transactionData);
+			setCurrentTransaction('');
+			setCurrentTransactionId('');
 		}
 	}
 
 	async function handleDelete() {
 		setIsOpen(false);
-		await deleteExpense(currentExpenseId);
-		setCurrentExpense('');
-		setCurrentExpenseId('');
+		await deleteTransaction(currentTransactionId);
+		setCurrentTransaction('');
+		setCurrentTransactionId('');
 	}
 
 	return (
-		<section className="expenses">
+		<section className="transactions">
 			{isOpen && (
-				<ManageExpense
+				<ManageTransaction
 					handleClick={handleSubmit}
 					close={(e) => {
 						e.preventDefault();
 						setIsOpen(false);
-						setCurrentExpense('');
-						setCurrentExpenseId('');
+						setCurrentTransaction('');
+						setCurrentTransactionId('');
 					}}
-					currentExpense={currentExpense}
-					setCurrentExpense={setCurrentExpense}
+					currentTransaction={currentTransaction}
+					setCurrentTransaction={setCurrentTransaction}
 					handleDelete={handleDelete}
 				/>
 			)}
-			<div className="expenses-top-bar">
+			<div className="transactions-top-bar">
 				<Input />
-				<Button value="Create Expense" onClick={() => setIsOpen(true)} />
+				<Button value="Create Transaction" onClick={() => setIsOpen(true)} />
 				<Button value="Filters" />
 			</div>
-			<div className="expenses-categories">
+			<div className="transactions-categories">
 				<p>NAME/BUSINESS</p>
 				<p>TYPE</p>
 				<p>AMOUNT</p>
@@ -91,7 +102,7 @@ export default function Transactions() {
 				<p>INVOICE ID</p>
 				<p>ACTION</p>
 			</div>
-			{expensesArr}
+			{transactionsArr}
 		</section>
 	);
 }
