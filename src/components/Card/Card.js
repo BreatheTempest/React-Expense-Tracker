@@ -1,5 +1,5 @@
 import React from 'react';
-import './Spending.css';
+import './Card.css';
 
 export default function Spending(props) {
 	return (

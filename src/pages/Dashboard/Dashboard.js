@@ -1,5 +1,5 @@
 import Transaction from '../../components/Transaction/Transaction';
-import Spending from '../../components/Spending/Spending';
+import Card from '../../components/Card/Card';
 import Button from '../../components/Button';
 import './Dashboard.css';
 
@@ -7,21 +7,30 @@ import expand from '../../assets/icons/expand-right.svg';
 import wallet from '../../components/icons/wallet.svg';
 import { useNavigate } from 'react-router-dom';
 import { useTransactions } from '../../contexts/TransactionsContext';
+import Chart from '../../components/Chart/Chart';
 
 export default function Dashboard() {
 	const { transactions } = useTransactions();
 
+	const income = transactions.reduce((total, item) => {
+		return item.transaction === 'Income' ? total + +item.amount : total + 0;
+	}, 0);
+	const expenses = transactions.reduce((total, item) => {
+		return item.transaction === 'Expense' ? total + +item.amount : total + 0;
+	}, 0);
+
 	const navigate = useNavigate();
 
-	const expensesArr = transactions.map((expense) => (
+	const transactionsArr = transactions.map((transaction) => (
 		<Transaction
 			img={wallet}
-			key={expense.invoice}
-			title={expense.title}
-			type={expense.type}
-			amount={expense.amount}
-			date={expense.date}
-			class="expense-dashboard"
+			mode={transaction.transaction}
+			key={transaction.invoice}
+			title={transaction.title}
+			type={transaction.type}
+			amount={transaction.amount}
+			date={transaction.date}
+			class="transaction-dashboard"
 		/>
 	));
 
@@ -29,14 +38,24 @@ export default function Dashboard() {
 		<div className="dashboard">
 			<section className="right-section">
 				<div className="spending">
-					<Spending icon={wallet} rate="Total spending" value="$5340.21" />
-					<Spending icon={wallet} rate="Monthly spending" value="$250.80" />
-					<Spending icon={wallet} rate="Daily spending" value="$10.25" />
+					<Card
+						icon={wallet}
+						rate="Balance"
+						value={`${
+							income - expenses < 0
+								? `-$${-income - -expenses}`
+								: `$${income - expenses}`
+						}`}
+					/>
+					<Card icon={wallet} rate="Total income" value={`$${income}`} />
+					<Card icon={wallet} rate="Total spending" value={`-$${expenses}`} />
 				</div>
-				<div className="graph"></div>
-				<div className="recent-expenses">
-					<div className="expenses-title">
-						<h2>Recent Expenses</h2>
+				<div className="graph">
+					<Chart />
+				</div>
+				<div className="recent-transactions">
+					<div className="transactions-title">
+						<h2>Recent Transactions</h2>
 						<Button
 							value="View All"
 							icon={expand}
@@ -49,12 +68,12 @@ export default function Dashboard() {
 						<p>AMOUNT</p>
 						<p>DATE</p>
 					</div>
-					{expensesArr}
+					{transactionsArr}
 				</div>
 			</section>
 			<section className="recurring">
-				<div className="expenses-title">
-					<h2>Recurring Expenses</h2>
+				<div className="transactions-title">
+					<h2>Recurring Transactions</h2>
 					<Button value="View All" icon={expand} />
 				</div>
 			</section>

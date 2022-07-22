@@ -134,7 +134,7 @@ export default function Settings() {
 					label="Mobile Number"
 					name="mobileNumber"
 					value={data.mobileNumber}
-					type="number"
+					type="tel"
 					placeholder="+123 456 7890"
 					handleInput={handleInput}
 					readOnly={!editSettings}

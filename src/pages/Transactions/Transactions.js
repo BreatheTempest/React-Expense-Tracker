@@ -44,7 +44,6 @@ export default function Transactions() {
 	}
 
 	async function handleSubmit(data) {
-		console.log(data);
 		setIsOpen(false);
 		const id = nanoid();
 		const invoice = {
@@ -54,7 +53,7 @@ export default function Transactions() {
 			transaction: data.transaction,
 			title: data.title,
 			type: data.type,
-			amount: data.amount,
+			amount: +data.amount,
 			date: data.date,
 		};
 		if (!currentTransactionId) {
