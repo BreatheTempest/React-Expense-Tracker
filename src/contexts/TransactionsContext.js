@@ -26,7 +26,7 @@ export default function TransactionsProvider({ children }) {
 	const uid = currentUser && currentUser.uid;
 	const [transactions, setTransactions] = useState([]);
 	const notesRef = currentUser && collection(db, 'users', uid, 'transactions');
-
+	const [timePeriod, setTimePeriod] = useState(7);
 	const income = transactions.filter((item) => item.transaction === 'Income');
 
 	const expenses = transactions.filter(
@@ -53,38 +53,25 @@ export default function TransactionsProvider({ children }) {
 		return deleteDoc(doc(db, 'users', uid, 'transactions', id));
 	}
 
-	function combineAmount(array) {
-		return array.reduce((array, item) => {
-			const date = item.date;
-			const sameDate = array.find((newObj) => newObj.date === date);
-			if (sameDate) {
-				sameDate.amount += item.amount;
-			} else
-				array.push({
-					date: date,
-					amount: item.amount,
-				});
-			return array;
-		}, []);
-	}
-
-	const lastWeek = Array(7)
+	const dateArray = Array(timePeriod)
 		.fill()
 		.map((item, index) =>
 			subDays(new Date(), index).toISOString().substring(0, 10)
 		);
-	const lastWeekIncome = fillAmount(lastWeek, income);
-	const lastWeekExpenses = fillAmount(lastWeek, expenses);
+	const incomeThroughTime = fillAmount(dateArray, income);
+	const expensesThroughTime = fillAmount(dateArray, expenses);
 	const value = {
 		transactions,
 		income,
 		expenses,
-		lastWeekIncome,
-		lastWeekExpenses,
-		lastWeek,
+		incomeThroughTime,
+		expensesThroughTime,
+		dateArray,
 		createTransaction,
 		updateTransaction,
 		deleteTransaction,
+		setTimePeriod,
+		timePeriod,
 	};
 	return (
 		<TransactionsContext.Provider value={value}>
@@ -93,12 +80,11 @@ export default function TransactionsProvider({ children }) {
 	);
 }
 
-function fillAmount(duration, transactions) {
-	return duration.reduce((array, date) => {
+function fillAmount(dates, transactions) {
+	return dates.reduce((array, date) => {
 		transactions.forEach((item) => {
 			const sameDate = array.find((newObj) => newObj.date === item.date);
 			if (item.date === date) {
-				console.log(item.date, date);
 				if (sameDate) {
 					sameDate.amount += item.amount;
 				} else

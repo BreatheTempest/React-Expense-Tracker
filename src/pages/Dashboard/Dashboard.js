@@ -8,13 +8,23 @@ import wallet from '../../components/icons/wallet.svg';
 import { useNavigate } from 'react-router-dom';
 import { useTransactions } from '../../contexts/TransactionsContext';
 import Chart from '../../components/Chart/Chart';
+import Select from 'react-select';
 
 export default function Dashboard() {
-	const { transactions, income, expenses } = useTransactions();
+	const {
+		transactions,
+		setTimePeriod,
+		incomeThroughTime,
+		expensesThroughTime,
+		timePeriod,
+	} = useTransactions();
 
-	const totalIncome = income.reduce((total, item) => total + +item.amount, 0);
+	const totalIncome = incomeThroughTime.reduce(
+		(total, item) => total + +item.amount,
+		0
+	);
 
-	const totalExpenses = expenses.reduce(
+	const totalExpenses = expensesThroughTime.reduce(
 		(total, item) => total + +item.amount,
 		0
 	);
@@ -34,29 +44,74 @@ export default function Dashboard() {
 		/>
 	));
 
+	const options = [
+		{
+			value: 7,
+			label: 'Last Week',
+		},
+		{
+			value: 30,
+			label: 'Last Month',
+		},
+		{
+			value: 300,
+			label: 'All Time',
+		},
+	];
+
 	return (
 		<div className="dashboard">
 			<section className="right-section">
+				<div className="dashboard-top">
+					<h3>Statistics</h3>
+					<Select
+						options={options}
+						value={timePeriod === 7 ? options[0] : options[1]}
+						className="select-container"
+						classNamePrefix="select"
+						onChange={(e) => setTimePeriod(() => e.value)}
+					/>
+				</div>
 				<div className="spending">
 					<Card
 						icon={wallet}
-						rate="Balance"
+						rate={
+							timePeriod === 7
+								? 'Weekly Balance'
+								: timePeriod === 30
+								? 'Monthly Balance'
+								: 'Total Balance'
+						}
 						value={`${
 							totalIncome - totalExpenses < 0
 								? `-$${-totalIncome - -totalExpenses}`
 								: `$${totalIncome - totalExpenses}`
 						}`}
 					/>
-					<Card icon={wallet} rate="Total income" value={`$${totalIncome}`} />
 					<Card
 						icon={wallet}
-						rate="Total spending"
+						rate={
+							timePeriod === 7
+								? 'Weekly Income'
+								: timePeriod === 30
+								? 'Monthly Income'
+								: 'Total Income'
+						}
+						value={`$${totalIncome}`}
+					/>
+					<Card
+						icon={wallet}
+						rate={
+							timePeriod === 7
+								? 'Weekly Spending'
+								: timePeriod === 30
+								? 'Monthly Spending'
+								: 'Total Spending'
+						}
 						value={`-$${totalExpenses}`}
 					/>
 				</div>
-				<div className="graph">
-					<Chart />
-				</div>
+				<Chart />
 				<div className="recent-transactions">
 					<div className="transactions-title">
 						<h2>Recent Transactions</h2>
@@ -72,7 +127,7 @@ export default function Dashboard() {
 						<p>AMOUNT</p>
 						<p>DATE</p>
 					</div>
-					{transactionsArr}
+					<div className="transactions-table">{transactionsArr}</div>
 				</div>
 			</section>
 			<section className="recurring">
