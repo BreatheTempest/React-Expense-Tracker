@@ -10,14 +10,14 @@ import { useTransactions } from '../../contexts/TransactionsContext';
 import Chart from '../../components/Chart/Chart';
 
 export default function Dashboard() {
-	const { transactions } = useTransactions();
+	const { transactions, income, expenses } = useTransactions();
 
-	const income = transactions.reduce((total, item) => {
-		return item.transaction === 'Income' ? total + +item.amount : total + 0;
-	}, 0);
-	const expenses = transactions.reduce((total, item) => {
-		return item.transaction === 'Expense' ? total + +item.amount : total + 0;
-	}, 0);
+	const totalIncome = income.reduce((total, item) => total + +item.amount, 0);
+
+	const totalExpenses = expenses.reduce(
+		(total, item) => total + +item.amount,
+		0
+	);
 
 	const navigate = useNavigate();
 
@@ -42,13 +42,17 @@ export default function Dashboard() {
 						icon={wallet}
 						rate="Balance"
 						value={`${
-							income - expenses < 0
-								? `-$${-income - -expenses}`
-								: `$${income - expenses}`
+							totalIncome - totalExpenses < 0
+								? `-$${-totalIncome - -totalExpenses}`
+								: `$${totalIncome - totalExpenses}`
 						}`}
 					/>
-					<Card icon={wallet} rate="Total income" value={`$${income}`} />
-					<Card icon={wallet} rate="Total spending" value={`-$${expenses}`} />
+					<Card icon={wallet} rate="Total income" value={`$${totalIncome}`} />
+					<Card
+						icon={wallet}
+						rate="Total spending"
+						value={`-$${totalExpenses}`}
+					/>
 				</div>
 				<div className="graph">
 					<Chart />
