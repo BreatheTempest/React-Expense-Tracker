@@ -32,9 +32,21 @@ export default function Dashboard() {
 		0
 	);
 
+	const recurringChangesArr = transactions
+		.filter((item) => item.recurring === true)
+		.map((transaction) => (
+			<Transaction
+				img={wallet}
+				key={transaction.invoice}
+				title={transaction.title}
+				amount={transaction.amount}
+				class="transaction-recurring"
+			/>
+		));
+
 	const navigate = useNavigate();
 
-	//Sort by recent transactions
+	//Sort by recent transactions on load
 	useEffect(() => {
 		setSort(['date', 'asc']);
 	}, [setSort]);
@@ -138,8 +150,13 @@ export default function Dashboard() {
 			<section className="recurring">
 				<div className="transactions-title">
 					<h2>Recurring Transactions</h2>
-					<Button value="View All" icon={expand} />
+					<Button
+						value="View All"
+						icon={expand}
+						onClick={() => navigate('transactions')}
+					/>
 				</div>
+				{recurringChangesArr}
 			</section>
 		</div>
 	);

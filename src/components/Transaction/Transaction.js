@@ -9,13 +9,13 @@ export default function Transaction(props) {
 				{props.img && <props.img />}
 				<p>{props.title}</p>
 			</div>
-			<p className="type">{props.type}</p>
+			{props.type && <p className="type">{props.type}</p>}
 			<p
 				className={`amount ${props.mode === 'Expense' ? 'expense' : 'income'}`}
 			>
 				{props.mode === 'Expense' && '-'}${props.amount}
 			</p>
-			<p className="date">{props.date}</p>
+			{props.date && <p className="date">{props.date}</p>}
 
 			{props.edit && (
 				<div className="invoice-container">

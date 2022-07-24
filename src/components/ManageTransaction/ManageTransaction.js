@@ -10,7 +10,8 @@ import { useDarkMode } from '../../contexts/DarkModeContext';
 export default function CreateTransaction(props) {
 	const { darkMode } = useDarkMode();
 
-	const { title, amount, type, date, transaction } = props.currentTransaction;
+	const { title, amount, type, date, transaction, recurring } =
+		props.currentTransaction;
 
 	const currentDate = new Date().toISOString().substring(0, 10);
 
@@ -20,7 +21,7 @@ export default function CreateTransaction(props) {
 		amount: amount || '',
 		type: type || '',
 		date: date || currentDate,
-		recurring: false,
+		recurring: recurring || false,
 	});
 
 	const options =
@@ -79,10 +80,11 @@ export default function CreateTransaction(props) {
 			  ];
 
 	function handleChange(e) {
-		const { name, value } = e.target;
+		console.log(e.target.checked);
+		const { name, value, checked, type } = e.target;
 		setData((prev) => ({
 			...prev,
-			[name]: value,
+			[name]: type === 'checkbox' ? checked : value,
 		}));
 	}
 
@@ -164,9 +166,10 @@ export default function CreateTransaction(props) {
 					/>
 					<Input
 						type="checkbox"
-						name="Recurring"
+						name="recurring"
 						label="Recurring"
 						class="checkbox"
+						checked={data.recurring}
 						handleInput={handleChange}
 					/>
 				</div>

@@ -74,6 +74,7 @@ export default function Transactions() {
 			type: data.type,
 			amount: +data.amount,
 			date: data.date,
+			recurring: data.recurring,
 		};
 		if (!currentTransactionId) {
 			await createTransaction(id, { ...transactionData, ...invoice });

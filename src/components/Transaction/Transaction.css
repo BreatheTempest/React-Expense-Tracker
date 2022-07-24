@@ -8,6 +8,11 @@
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
 }
 
+.transaction-recurring {
+	display: flex;
+	justify-content: space-between;
+}
+
 .transaction-transactions :not(:first-child),
 .transaction-dashboard :not(:first-child) {
 	text-align: center;

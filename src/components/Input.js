@@ -17,6 +17,7 @@ export default function Input(props) {
 				required={props.required}
 				id={props.name}
 				readOnly={props.readOnly}
+				checked={props.checked}
 			/>
 		</div>
 	);
