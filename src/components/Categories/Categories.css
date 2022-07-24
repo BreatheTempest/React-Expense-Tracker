@@ -1,0 +1,13 @@
+.categories {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	font-size: var(--font-size-300);
+	color: var(--font-clr-secondary-200);
+}
+.categories.categories-transactions {
+	grid-template-columns: repeat(5, 1fr) 0.5fr;
+}
+
+.categories :not(:first-child) {
+	text-align: center;
+}

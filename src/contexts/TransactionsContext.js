@@ -26,9 +26,9 @@ export default function TransactionsProvider({ children }) {
 	const uid = currentUser && currentUser.uid;
 	const [transactions, setTransactions] = useState([]);
 	const notesRef = currentUser && collection(db, 'users', uid, 'transactions');
+	const [sort, setSort] = useState(['date', 'asc']);
 	const [timePeriod, setTimePeriod] = useState(7);
 	const income = transactions.filter((item) => item.transaction === 'Income');
-
 	const expenses = transactions.filter(
 		(item) => item.transaction === 'Expense'
 	);
@@ -60,6 +60,29 @@ export default function TransactionsProvider({ children }) {
 		);
 	const incomeThroughTime = fillAmount(dateArray, income);
 	const expensesThroughTime = fillAmount(dateArray, expenses);
+
+	function sortTransactions(value, order) {
+		return transactions.sort((a, b) => {
+			const itemA = a[value] === '' ? a[value].toUpperCase() : a[value];
+			const itemB = b[value] === '' ? b[value].toUpperCase() : b[value];
+			if (itemA < itemB) {
+				return order === 'asc' ? 1 : -1;
+			}
+			if (itemA > itemB) {
+				return order === 'asc' ? -1 : 1;
+			}
+			return 0;
+		});
+	}
+
+	useEffect(() => {
+		if (transactions) {
+			sortTransactions(sort[0], sort[1]);
+			console.table(transactions);
+			setTransactions((prevTransactions) => [...prevTransactions]);
+		}
+	}, [sort]);
+
 	const value = {
 		transactions,
 		income,
@@ -72,6 +95,7 @@ export default function TransactionsProvider({ children }) {
 		deleteTransaction,
 		setTimePeriod,
 		timePeriod,
+		setSort,
 	};
 	return (
 		<TransactionsContext.Provider value={value}>

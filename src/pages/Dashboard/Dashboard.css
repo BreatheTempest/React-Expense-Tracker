@@ -43,20 +43,9 @@
 	font-weight: var(--font-weight-semi-bold);
 }
 
-.dashboard-categories {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	font-size: var(--font-size-300);
-	color: var(--font-clr-secondary-200);
-}
-
 .transactions-table {
 	display: grid;
 	gap: 20px;
-}
-
-.dashboard-categories :not(:first-child) {
-	text-align: center;
 }
 
 /* Select */

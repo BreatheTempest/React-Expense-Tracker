@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTransactions } from '../../contexts/TransactionsContext';
 import Chart from '../../components/Chart/Chart';
 import Select from 'react-select';
+import Categories from '../../components/Categories/Categories';
 
 export default function Dashboard() {
 	const {
@@ -121,12 +122,7 @@ export default function Dashboard() {
 							onClick={() => navigate('transactions')}
 						/>
 					</div>
-					<div className="dashboard-categories">
-						<p>NAME/BUSINESS</p>
-						<p>TYPE</p>
-						<p>AMOUNT</p>
-						<p>DATE</p>
-					</div>
+					<Categories />
 					<div className="transactions-table">{transactionsArr}</div>
 				</div>
 			</section>

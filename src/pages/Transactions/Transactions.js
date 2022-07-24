@@ -7,6 +7,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import ManageTransaction from '../../components/ManageTransaction/ManageTransaction';
 import { useState } from 'react';
+import Categories from '../../components/Categories/Categories';
 
 export default function Transactions() {
 	const {
@@ -91,16 +92,8 @@ export default function Transactions() {
 			<div className="transactions-top-bar">
 				<Input />
 				<Button value="Create Transaction" onClick={() => setIsOpen(true)} />
-				<Button value="Filters" />
 			</div>
-			<div className="transactions-categories">
-				<p>NAME/BUSINESS</p>
-				<p>TYPE</p>
-				<p>AMOUNT</p>
-				<p>DATE</p>
-				<p>INVOICE ID</p>
-				<p>ACTION</p>
-			</div>
+			<Categories full />
 			{transactionsArr}
 		</section>
 	);

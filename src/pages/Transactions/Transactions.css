@@ -28,14 +28,3 @@
 	background-color: #1b212d;
 	color: var(--clr-primary);
 }
-
-.transactions-categories {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr) 0.5fr;
-	font-size: var(--font-size-300);
-	color: var(--font-clr-secondary-200);
-}
-
-.transactions-categories :not(:first-child) {
-	text-align: center;
-}
