@@ -49,7 +49,7 @@
 }
 
 .transaction-button {
-	margin-inline: auto;
+	margin-left: auto;
 	width: fit-content;
 	font-size: var(--font-size-400);
 	font-weight: var(--font-weight-semi-bold);
@@ -64,4 +64,32 @@
 .transaction-button:hover {
 	background-color: #1b212d;
 	color: var(--clr-primary);
+}
+
+.invoice-container {
+	position: relative;
+	display: grid;
+	place-items: center;
+}
+
+.transactions .invoice {
+	width: 10ch;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-inline: auto;
+}
+
+.invoice-full {
+	position: absolute;
+	display: none;
+	color: var(--font-clr-primary);
+	background-color: var(--bg-clr-secondary);
+	padding: 5px;
+	border-radius: 10px;
+}
+
+.invoice-container:hover .invoice-full {
+	display: block;
+	z-index: 1;
 }

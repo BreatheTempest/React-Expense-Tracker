@@ -31,7 +31,11 @@ export default function Categories(props) {
 			<button name="date" onClick={handleClick}>
 				DATE
 			</button>
-			{props.full && <p>INVOICE ID</p>}
+			{props.full && (
+				<button name="invoice" onClick={handleClick}>
+					INVOICE ID
+				</button>
+			)}
 			{props.full && <p>ACTION</p>}
 		</div>
 	);

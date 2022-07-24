@@ -7,10 +7,12 @@
 	align-items: center;
 }
 
-.spending-card img {
-	background-color: #ebe8e8;
+.spending-card .img {
+	background-color: var(--bg-clr-primary);
 	padding: 11px;
 	border-radius: 50%;
+	display: grid;
+	place-items: center;
 }
 
 .spending-card p {

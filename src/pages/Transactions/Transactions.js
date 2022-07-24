@@ -1,12 +1,12 @@
 import './Transactions.css';
 import { nanoid } from 'nanoid';
-import wallet from '../../components/icons/wallet.svg';
+import wallet from '../../components/icons/wallet.js';
 import Transaction from '../../components/Transaction/Transaction';
 import { useTransactions } from '../../contexts/TransactionsContext';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import ManageTransaction from '../../components/ManageTransaction/ManageTransaction';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Categories from '../../components/Categories/Categories';
 
 export default function Transactions() {
@@ -15,12 +15,29 @@ export default function Transactions() {
 		createTransaction,
 		updateTransaction,
 		deleteTransaction,
+		setSort,
 	} = useTransactions();
+	const [search, setSearch] = useState();
 	const [isOpen, setIsOpen] = useState(false);
 	const [currentTransactionId, setCurrentTransactionId] = useState('');
+	const [filteredTransactions, setFilteredTransactions] = useState([]);
 	const [currentTransaction, setCurrentTransaction] = useState('');
 
-	const transactionsArr = transactions.map((transaction) => (
+	function handleInput(e) {
+		const { value } = e.target;
+		setSearch(value);
+		if (value) {
+			setFilteredTransactions(
+				transactions.filter((item) => item.title.includes(value))
+			);
+		} else setFilteredTransactions(transactions);
+	}
+
+	useEffect(() => {
+		setFilteredTransactions(transactions);
+	}, [transactions]);
+
+	const transactionsArr = filteredTransactions.map((transaction) => (
 		<Transaction
 			img={wallet}
 			mode={transaction.transaction}
@@ -42,6 +59,7 @@ export default function Transactions() {
 			transactions.find((transaction) => transaction.invoice === id)
 		);
 		setIsOpen(true);
+		setSort(['date', 'asc']);
 	}
 
 	async function handleSubmit(data) {
@@ -63,6 +81,7 @@ export default function Transactions() {
 			await updateTransaction(currentTransactionId, transactionData);
 			setCurrentTransaction('');
 			setCurrentTransactionId('');
+			setSort(['date', 'asc']);
 		}
 	}
 
@@ -71,6 +90,7 @@ export default function Transactions() {
 		await deleteTransaction(currentTransactionId);
 		setCurrentTransaction('');
 		setCurrentTransactionId('');
+		setSort(['date', 'asc']);
 	}
 
 	return (
@@ -90,7 +110,11 @@ export default function Transactions() {
 				/>
 			)}
 			<div className="transactions-top-bar">
-				<Input />
+				<Input
+					placeholder="Search by name"
+					handleInput={handleInput}
+					value={search}
+				/>
 				<Button value="Create Transaction" onClick={() => setIsOpen(true)} />
 			</div>
 			<Categories full />

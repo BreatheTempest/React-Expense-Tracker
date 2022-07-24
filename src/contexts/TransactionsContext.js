@@ -62,23 +62,31 @@ export default function TransactionsProvider({ children }) {
 	const expensesThroughTime = fillAmount(dateArray, expenses);
 
 	function sortTransactions(value, order) {
-		return transactions.sort((a, b) => {
-			const itemA = a[value] === '' ? a[value].toUpperCase() : a[value];
-			const itemB = b[value] === '' ? b[value].toUpperCase() : b[value];
-			if (itemA < itemB) {
-				return order === 'asc' ? 1 : -1;
-			}
-			if (itemA > itemB) {
-				return order === 'asc' ? -1 : 1;
-			}
-			return 0;
-		});
+		if (value === 'amount') {
+			const incomePart = income.sort((a, b) => a.amount - b.amount);
+			const expensePart = expenses.sort((a, b) => a.amount - b.amount);
+			setTransactions(
+				order === 'asc'
+					? [...incomePart, ...expensePart]
+					: [...incomePart, ...expensePart].reverse()
+			);
+		} else
+			return transactions.sort((a, b) => {
+				const itemA = a[value].toUpperCase();
+				const itemB = b[value].toUpperCase();
+				if (itemA < itemB) {
+					return order === 'asc' ? 1 : -1;
+				}
+				if (itemA > itemB) {
+					return order === 'asc' ? -1 : 1;
+				}
+				return 0;
+			});
 	}
 
 	useEffect(() => {
 		if (transactions) {
 			sortTransactions(sort[0], sort[1]);
-			console.table(transactions);
 			setTransactions((prevTransactions) => [...prevTransactions]);
 		}
 	}, [sort]);

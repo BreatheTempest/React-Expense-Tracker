@@ -4,12 +4,13 @@ import Button from '../../components/Button';
 import './Dashboard.css';
 
 import expand from '../../assets/icons/expand-right.svg';
-import wallet from '../../components/icons/wallet.svg';
+import wallet from '../../components/icons/wallet.js';
 import { useNavigate } from 'react-router-dom';
 import { useTransactions } from '../../contexts/TransactionsContext';
 import Chart from '../../components/Chart/Chart';
 import Select from 'react-select';
 import Categories from '../../components/Categories/Categories';
+import { useEffect } from 'react';
 
 export default function Dashboard() {
 	const {
@@ -18,6 +19,7 @@ export default function Dashboard() {
 		incomeThroughTime,
 		expensesThroughTime,
 		timePeriod,
+		setSort,
 	} = useTransactions();
 
 	const totalIncome = incomeThroughTime.reduce(
@@ -32,18 +34,25 @@ export default function Dashboard() {
 
 	const navigate = useNavigate();
 
-	const transactionsArr = transactions.map((transaction) => (
-		<Transaction
-			img={wallet}
-			mode={transaction.transaction}
-			key={transaction.invoice}
-			title={transaction.title}
-			type={transaction.type}
-			amount={transaction.amount}
-			date={transaction.date}
-			class="transaction-dashboard"
-		/>
-	));
+	//Sort by recent transactions
+	useEffect(() => {
+		setSort(['date', 'asc']);
+	}, [setSort]);
+
+	const transactionsArr = transactions
+		.slice(0, 3)
+		.map((transaction) => (
+			<Transaction
+				img={wallet}
+				mode={transaction.transaction}
+				key={transaction.invoice}
+				title={transaction.title}
+				type={transaction.type}
+				amount={transaction.amount}
+				date={transaction.date}
+				class="transaction-dashboard"
+			/>
+		));
 
 	const options = [
 		{

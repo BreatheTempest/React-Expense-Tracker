@@ -38,9 +38,7 @@ a {
 	text-decoration: none;
 }
 
-img,
-picture,
-svg {
+img {
 	display: block;
 	max-width: 100%;
 }

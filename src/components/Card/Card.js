@@ -4,7 +4,9 @@ import './Card.css';
 export default function Spending(props) {
 	return (
 		<div className="spending-card">
-			<img src={props.icon} alt="" />
+			<div className="img">
+				<props.icon />
+			</div>
 			<div>
 				<p>{props.rate}</p>
 				<h3>{props.value}</h3>

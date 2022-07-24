@@ -6,7 +6,7 @@ export default function Transaction(props) {
 	return (
 		<div className={props.class}>
 			<div className="name">
-				{props.img && <img src={props.img} alt="" />}
+				{props.img && <props.img />}
 				<p>{props.title}</p>
 			</div>
 			<p className="type">{props.type}</p>
@@ -16,7 +16,14 @@ export default function Transaction(props) {
 				{props.mode === 'Expense' && '-'}${props.amount}
 			</p>
 			<p className="date">{props.date}</p>
-			<p className="invoice">{props.invoice}</p>
+
+			{props.edit && (
+				<div className="invoice-container">
+					<p className="invoice">{props.invoice}</p>
+					<p className="invoice-full">{props.invoice}</p>
+				</div>
+			)}
+
 			{props.edit && (
 				<Button
 					class="transaction-button"
