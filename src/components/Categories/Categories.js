@@ -1,10 +1,12 @@
 import { useTransactions } from '../../contexts/TransactionsContext';
 import './Categories.css';
+import arrow from '../../assets/icons/arrow.svg';
+import Button from '../../components/Button';
 export default function Categories(props) {
-	const { setSort } = useTransactions();
+	const { sort, setSort } = useTransactions();
+	console.log(sort[1]);
 
 	function handleClick(e) {
-		e.stopPropagation();
 		const { name } = e.target;
 		setSort((prevSort) => {
 			return prevSort[0] !== name
@@ -19,22 +21,42 @@ export default function Categories(props) {
 		<div
 			className={`categories ${props.full ? 'categories-transactions' : ''}`}
 		>
-			<button name="title" onClick={handleClick}>
-				NAME/BUSINESS
-			</button>
-			<button name="type" onClick={handleClick}>
-				TYPE
-			</button>
-			<button name="amount" onClick={handleClick}>
-				AMOUNT
-			</button>
-			<button name="date" onClick={handleClick}>
-				DATE
-			</button>
+			<Button
+				value="NAME/BUSINESS"
+				name="title"
+				onClick={handleClick}
+				icon={sort[0] === 'title' ? arrow : null}
+				iconClass={sort[1]}
+			/>
+			<Button
+				value="TYPE"
+				name="type"
+				onClick={handleClick}
+				icon={sort[0] === 'type' ? arrow : null}
+				iconClass={sort[1]}
+			/>
+			<Button
+				value="AMOUNT"
+				name="amount"
+				onClick={handleClick}
+				icon={sort[0] === 'amount' ? arrow : null}
+				iconClass={sort[1]}
+			/>
+			<Button
+				value="DATE"
+				name="date"
+				onClick={handleClick}
+				icon={sort[0] === 'date' ? arrow : null}
+				iconClass={sort[1]}
+			/>
 			{props.full && (
-				<button name="invoice" onClick={handleClick}>
-					INVOICE ID
-				</button>
+				<Button
+					value="INVOICE ID"
+					name="invoice"
+					onClick={handleClick}
+					icon={sort[0] === 'invoice' ? arrow : null}
+					iconClass={sort[1]}
+				/>
 			)}
 			{props.full && <p>ACTION</p>}
 		</div>

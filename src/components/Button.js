@@ -4,8 +4,16 @@ export default function Button(props) {
 			className={props.class}
 			onClick={props.onClick}
 			disabled={props.disabled}
+			name={props.name}
 		>
-			{props.icon && <img src={props.icon} alt="" />}
+			{props.icon && (
+				<img
+					className={props.iconClass}
+					name={props.name}
+					src={props.icon}
+					alt=""
+				/>
+			)}
 			{props.value}
 		</button>
 	);

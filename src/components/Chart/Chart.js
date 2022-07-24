@@ -2,7 +2,7 @@ import './Chart.css';
 import { useTransactions } from '../../contexts/TransactionsContext';
 import React from 'react';
 import { Chart as ChartJS } from 'chart.js/auto';
-import { Line, Bar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 export default function Chart(props) {
 	const { incomeThroughTime, expensesThroughTime, dateArray } =
 		useTransactions();

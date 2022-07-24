@@ -67,8 +67,8 @@ export default function TransactionsProvider({ children }) {
 			const expensePart = expenses.sort((a, b) => a.amount - b.amount);
 			setTransactions(
 				order === 'asc'
-					? [...incomePart, ...expensePart]
-					: [...incomePart, ...expensePart].reverse()
+					? [...incomePart.reverse(), ...expensePart]
+					: [...incomePart.reverse(), ...expensePart].reverse()
 			);
 		} else
 			return transactions.sort((a, b) => {
@@ -104,6 +104,7 @@ export default function TransactionsProvider({ children }) {
 		setTimePeriod,
 		timePeriod,
 		setSort,
+		sort,
 	};
 	return (
 		<TransactionsContext.Provider value={value}>
