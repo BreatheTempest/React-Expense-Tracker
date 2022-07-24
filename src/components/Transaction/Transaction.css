@@ -1,16 +1,22 @@
 .transaction-dashboard {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
+	border-top: 1px solid var(--font-clr-secondary-300);
+	padding-top: 20px;
 }
 .transaction-transactions {
 	display: grid;
 	align-items: center;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+	border-top: 1px solid var(--font-clr-secondary-300);
+	padding-top: 20px;
 }
 
 .transaction-recurring {
 	display: flex;
 	justify-content: space-between;
+	border-top: 1px solid var(--font-clr-secondary-300);
+	padding-top: 20px;
 }
 
 .transaction-transactions :not(:first-child),
@@ -60,15 +66,15 @@
 	font-weight: var(--font-weight-semi-bold);
 	border-radius: 10px;
 	padding: 11px 20px;
-	color: #1b212d;
-	background-color: var(--clr-primary);
-	border: 1px solid var(--clr-primary);
+	background-color: var(--bg-clr-secondary);
+	color: var(--font-clr-primary);
+	border: 1px solid var(--font-clr-primary);
 	transition: color 0.2s, background-color 0.2s;
 }
 
 .transaction-button:hover {
-	background-color: #1b212d;
-	color: var(--clr-primary);
+	color: #1b212d;
+	background-color: var(--clr-primary);
 }
 
 .invoice-container {

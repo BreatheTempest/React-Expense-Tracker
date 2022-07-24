@@ -35,6 +35,11 @@
 	color: #e5363d;
 }
 
+.modal-transaction .error {
+	color: #e5363d;
+	min-height: 1.5em;
+}
+
 .modal-date {
 	display: flex;
 	gap: 20px;

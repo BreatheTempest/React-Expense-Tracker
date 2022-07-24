@@ -12,6 +12,7 @@ export default function CreateTransaction(props) {
 
 	const { title, amount, type, date, transaction, recurring } =
 		props.currentTransaction;
+	const [error, setError] = useState('');
 
 	const currentDate = new Date().toISOString().substring(0, 10);
 
@@ -80,12 +81,29 @@ export default function CreateTransaction(props) {
 			  ];
 
 	function handleChange(e) {
-		console.log(e.target.checked);
 		const { name, value, checked, type } = e.target;
 		setData((prev) => ({
 			...prev,
 			[name]: type === 'checkbox' ? checked : value,
 		}));
+	}
+
+	function handleSubmit(e) {
+		e.preventDefault();
+
+		setError('');
+		const isError = checkForErrors();
+		if (!isError) props.handleClick(data);
+	}
+
+	function checkForErrors() {
+		for (let item in data) {
+			if (data[item] === '') {
+				setError('You need to fill all of the information');
+				return true;
+			}
+		}
+		return false;
 	}
 
 	return createPortal(
@@ -97,6 +115,7 @@ export default function CreateTransaction(props) {
 					</h3>
 					<Button value="x" onClick={props.close} class="close" />
 				</div>
+				<p className="error">{error}</p>
 
 				<div className="modal-buttons">
 					<Button
@@ -177,10 +196,7 @@ export default function CreateTransaction(props) {
 					<Button
 						value={props.currentTransaction ? 'Edit' : 'Add'}
 						class="add"
-						onClick={(e) => {
-							e.preventDefault();
-							props.handleClick(data);
-						}}
+						onClick={handleSubmit}
 					/>
 					{props.currentTransaction && (
 						<Button

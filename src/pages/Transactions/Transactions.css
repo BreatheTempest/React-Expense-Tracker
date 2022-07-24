@@ -1,6 +1,6 @@
 .transactions {
 	display: grid;
-	gap: 40px;
+	gap: 20px;
 	margin-inline: 40px;
 }
 

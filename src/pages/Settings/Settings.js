@@ -14,6 +14,7 @@ import { useAuth } from '../../contexts/AuthContext';
 export default function Settings() {
 	const { updateUser, updateUsersEmail, updateUsersPassword, userDetails } =
 		useAuth();
+	const [error, setError] = useState('');
 
 	useEffect(() => {
 		setData({
@@ -42,6 +43,7 @@ export default function Settings() {
 	const [passwordInput, setPasswordInput] = useState('password');
 
 	async function handleSubmit(e) {
+		setError('');
 		e.preventDefault();
 		const {
 			firstName,
@@ -54,8 +56,8 @@ export default function Settings() {
 		} = data;
 
 		if (email) {
-			await updateUsersEmail(email);
 			try {
+				await updateUsersEmail(email);
 				await updateUser({
 					firstName,
 					lastName,
@@ -64,11 +66,15 @@ export default function Settings() {
 					email,
 				});
 			} catch (err) {
-				console.log(err);
+				setError('Something went wrong!');
 			}
 		}
 		if (password && password === passwordConfirm) {
-			updateUsersPassword(password);
+			try {
+				updateUsersPassword(password);
+			} catch {
+				setError('Something went wrong!');
+			}
 		}
 		setEditSettings(false);
 	}
@@ -101,6 +107,7 @@ export default function Settings() {
 					/>
 				</div>
 				<Input
+					error={error}
 					name="firstName"
 					label="First Name"
 					type="text"

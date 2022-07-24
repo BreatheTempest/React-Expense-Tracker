@@ -133,7 +133,9 @@ export default function Dashboard() {
 						value={`-$${totalExpenses}`}
 					/>
 				</div>
-				<Chart />
+				<div className="chart">
+					<Chart />
+				</div>
 				<div className="recent-transactions">
 					<div className="transactions-title">
 						<h2>Recent Transactions</h2>

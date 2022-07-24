@@ -17,6 +17,10 @@
 	grid-template-columns: 1fr 1fr 1fr;
 }
 
+.chart {
+	max-width: 900px;
+}
+
 .recent-transactions {
 	display: grid;
 	gap: 20px;
@@ -94,6 +98,6 @@
 
 .recurring {
 	display: grid;
-	gap: 10px;
+	gap: 20px;
 	height: fit-content;
 }
